@@ -30,13 +30,13 @@ def show_menu_items():
     print("""
 1) Download a Single Video
 2) Download a Playlist
+3) Download videos of a Channel
 Others:
-    3) Why Free?
-    4) Credits
-    5) Contributors
-    6) Privacy Policy
-    7) Help
-8) Download videos of a Channel
+    4) Backstory
+    5) Credits
+    6) Contributors
+    7) Privacy Policy
+    8) Help
 99) Exit
     """)
 
@@ -65,7 +65,7 @@ Audio(MP3):
 
 
 def select_dl_quality():
-        selectquality = input("[?] Please select a quality: ")
+        selectquality = int(input("[?] Please select a quality: "))
         if selectquality == 1:
                 return "2160p"
         elif selectquality == 2:
@@ -112,14 +112,14 @@ def DOWNLOAD_VIDEO(qualityvid, urlvid):
                 print("Error", e)
                 return
 
-        print(f"\nExtracting Information: \n[+] Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Video Description: {yt.description} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid}\n")
+        print(f"\nExtracting Information: \n[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
         
         try:
                 with open(f"{yt.title} - Information.txt", "w") as fileinfotxt:
-                        fileinfotxt.write(f"[+] Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
+                        fileinfotxt.write(f"[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
         except:
                 with open(f"{yt.title.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')} - Information.txt", "w") as fileinfotxt:
-                        fileinfotxt.write(f"[+] Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
+                        fileinfotxt.write(f"[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
         
         print(f"[+] Wrote Information to {yt.title} - Information.txt")
         print("\n[*] Trying to download subtitles/captions")
@@ -145,13 +145,13 @@ def DOWNLOAD_VIDEO(qualityvid, urlvid):
                         print("[-] An Error has occured!")
                         print("[*] Trying to download with the highest available quality for the audio")
                         try:
-                                video = yt.streams.filter(only_audio=True).filter(abr=f"{qualityvid}").last().download()
+                                video = yt.streams.filter(only_audio=True).first().download()
                                 print(f"[+] File downloaded successfully!\n{video}")
                         except:
                                 print("[-] Failed!")
                                 print("[*] Trying to download with the lowest available quality for the audio")
                                 try:    
-                                        video = yt.streams.filter(only_audio=True).filter(abr=f"{qualityvid}").first().download()
+                                        video = yt.streams.filter(only_audio=True).last().download()
                                         print(f"[+] File downloaded successfully!\n{video}")
                                 except:
                                         print("[!!] FAILED")
@@ -191,6 +191,8 @@ def ENTIRE_PROGRAM():
                 downloadlink = input("[?] Enter the video link: ")
                 DOWNLOAD_VIDEO(qualityvid=selectquality, urlvid=downloadlink)
 
+                return
+
 
         if mmo == "2":
                 os.system("cls")
@@ -215,8 +217,10 @@ def ENTIRE_PROGRAM():
                         pl = Playlist(f'{downloadlink}')
                         for url in pl.video_urls:
                                 DOWNLOAD_VIDEO(qualityvid=selectquality, urlvid=url)
+                
+                return
 
-        if mmo == "3":
+        if mmo == "4":
                 os.system("cls")
                 print(f"""
 Once, i tried to download a music playlist to listen locally
@@ -241,7 +245,7 @@ a command properly... then i made this CLI version
                 else:
                         ENTIRE_PROGRAM()
 
-        if mmo == "4":
+        if mmo == "5":
                 os.system("cls")
                 print(r"""                              
                 ,. . ./(//..*////,. .       .               
@@ -279,19 +283,19 @@ a command properly... then i made this CLI version
                 else:
                         ENTIRE_PROGRAM()
 
-        if mmo == "5":
+        if mmo == "6":
                 webbrowser.open("https://github.com/hirusha-adi/YouTube-Video-Downloader")
                 ENTIRE_PROGRAM()
 
-        elif mmo == "6":
+        elif mmo == "7":
                 webbrowser.open("https://github.com/hirusha-adi/YouTube-Video-Downloader/blob/main/privacy-policy")
                 ENTIRE_PROGRAM()
 
-        elif mmo == "7":
+        elif mmo == "8":
                 webbrowser.open("https://github.com/hirusha-adi/YouTube-Video-Downloader/blob/main/help.md")
                 ENTIRE_PROGRAM()
         
-        if mmo == "8":
+        if mmo == "9":
                 os.system("cls")
                 show_logo()
                 show_all_qualities()
@@ -314,6 +318,7 @@ a command properly... then i made this CLI version
                         cl = Channel(f'{downloadlink}')
                         for url in cl.video_urls:
                                 DOWNLOAD_VIDEO(qualityvid=selectquality, urlvid=url)
+                return
 
         elif mmo == "99":
                 exit()
