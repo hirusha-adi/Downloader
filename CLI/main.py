@@ -14,14 +14,15 @@ def START_PROGRAM():
 
 def show_logo():
     print("""       
- _     _  _______  _____   ______ 
-(_)   (_)(__ _ __)(_____) (______)
- (_)_(_)    (_)   (_)  (_)(_)__   
-   (_)      (_)   (_)  (_)(____)  
-   (_)      (_)   (_)__(_)(_)     
-   (_)      (_)   (_____) (_)     
-                                 
-                                  """)
+██████╗ ██╗   ██╗████████╗██╗   ██╗
+██╔══██╗╚██╗ ██╔╝╚══██╔══╝██║   ██║
+██║  ██║ ╚████╔╝    ██║   ██║   ██║
+██║  ██║  ╚██╔╝     ██║   ╚██╗ ██╔╝
+██████╔╝   ██║      ██║    ╚████╔╝ 
+╚═════╝    ╚═╝      ╚═╝     ╚═══╝  
+                                   
+     Download You Tube Videos
+                        """)
 
 def show_menu_items():
     os.system("cls")
@@ -105,11 +106,10 @@ def DOWNLOAD_VIDEO(qualityvid, urlvid):
                                 print("[!!] FAILED")
 
 
-
 def ENTIRE_PROGRAM():
         show_menu_items()
 
-        mmo = input("[?] Please select an option: ")
+        mmo = input("\n[?] Please select an option: ")
 
         if mmo == "1":
                 os.system("cls")
@@ -179,6 +179,7 @@ def ENTIRE_PROGRAM():
                                 DOWNLOAD_VIDEO(qualityvid=downloadquality, urlvid=downloadlink)
 
         if mmo == "3":
+                os.system("cls")
                 print(f"""
 Once, i tried to download a music playlist to listen locally
 and i the experience was inferior! The only option i had was
@@ -189,7 +190,18 @@ it for free and make it open source... First i tried creating
 a GUI and i got it to work but except for the command of the
 download button. I realized i am a dumb idiot who can't create
 a command properly... then i made this CLI version
+
+                   made by ZeaCeR#5641
+                        1) Home 
+                        99) Exit
                 """)
+                mmo3i = input("[?] Please select an option: ")
+                if mmo3i == "1":
+                        ENTIRE_PROGRAM()
+                elif mmo3i == "99":
+                        exit()
+                else:
+                        ENTIRE_PROGRAM()
 
         if mmo == "4":
                 os.system("cls")
@@ -230,7 +242,23 @@ a command properly... then i made this CLI version
                         ENTIRE_PROGRAM()
 
         if mmo == "5":
-                webbrowser.open("")
+                webbrowser.open("https://github.com/hirusha-adi/YouTube-Video-Downloader")
+                ENTIRE_PROGRAM()
+
+        elif mmo == "6":
+                webbrowser.open("https://github.com/hirusha-adi/YouTube-Video-Downloader/blob/main/privacy-policy")
+                ENTIRE_PROGRAM()
+
+        elif mmo == "7":
+                webbrowser.open("https://github.com/hirusha-adi/YouTube-Video-Downloader/blob/main/help.md")
+                ENTIRE_PROGRAM()
+
+        elif mmo == "99":
+                exit()
+        
+        else:
+                ENTIRE_PROGRAM()
+
 
 
 if __name__ == "__main__":
