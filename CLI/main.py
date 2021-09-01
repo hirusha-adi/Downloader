@@ -33,11 +33,10 @@ def show_menu_items():
 2) Download a Playlist
 3) Download videos of a Channel
 Others:
-    4) Why Free?
-    5) Credits
-    6) Contributors
-    7) Privacy Policy
-    8) Help
+    4) Credits
+    5) Contributors
+    6) Privacy Policy
+    7) Help
 99) Exit
     """)
 
