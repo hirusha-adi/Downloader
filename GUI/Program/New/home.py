@@ -273,7 +273,7 @@ class Toplevel1:
 
                 if downloadtypeintexttp == "video":
                         # fkingshit.FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
-                        FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
+                        FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=fuckingurlmf)
 
                 elif downloadtypeintexttp == "playlist":
                         pl = Playlist(f'{fuckingurlmf}')
@@ -337,13 +337,13 @@ class Toplevel1:
                                 print("[-] An Error has occured!")
                                 print("[*] Trying to download with the highest available quality for the audio")
                                 try:
-                                        video = yt.streams.filter(only_audio=True).first().download()
+                                        video = yt.streams.filter(only_audio=True).last().download()
                                         print(f"[+] File downloaded successfully!\n{video}")
                                 except:
                                         print("[-] Failed!")
                                         print("[*] Trying to download with the lowest available quality for the audio")
                                         try:    
-                                                video = yt.streams.filter(only_audio=True).last().download()
+                                                video = yt.streams.filter(only_audio=True).first().download()
                                                 print(f"[+] File downloaded successfully!\n{video}")
                                         except:
                                                 print("[!!] FAILED")
