@@ -46,7 +46,7 @@ except ImportError:
 import home_support
 import importantstuff
 
-import fkingshit
+# import fkingshit
 
 # Import - Other Windows
 # -----------------------
@@ -102,7 +102,7 @@ class Toplevel1:
         top.geometry("600x370+786+240")
         top.minsize(117, 1)
         top.maxsize(4644, 1274)
-        top.resizable(1,  1)
+        top.resizable(False,  False)
         top.title("YouTube Video Downloader by ZeaCeR")
         top.configure(background="#ffffff")
         top.configure(highlightbackground="#d9d9d9")
@@ -824,8 +824,8 @@ class Toplevel1:
 
 
 
-if __name__ == '__main__':
-    vp_start_gui()
+# if __name__ == '__main__':
+#     vp_start_gui()
 
 
 

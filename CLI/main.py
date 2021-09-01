@@ -1,5 +1,5 @@
 import os, time, platform, webbrowser
-import importshandler
+# import importshandler
 from pytube import *
 
 class Info:
@@ -9,19 +9,20 @@ class Info:
 all_audio_qualities_tup = ("32kbps", "64kbps", "128kbps", "160kbps", "192kbps", "240kbps", "256kbps", "320kbps")
 
 def START_PROGRAM():
-        importshandler.ALL()
+        # importshandler.ALL()
         ENTIRE_PROGRAM()
 
 def show_logo():
     print("""       
-██████╗ ██╗   ██╗████████╗██╗   ██╗
-██╔══██╗╚██╗ ██╔╝╚══██╔══╝██║   ██║
-██║  ██║ ╚████╔╝    ██║   ██║   ██║
-██║  ██║  ╚██╔╝     ██║   ╚██╗ ██╔╝
-██████╔╝   ██║      ██║    ╚████╔╝ 
-╚═════╝    ╚═╝      ╚═╝     ╚═══╝  
-                                   
-     Download You Tube Videos
+        ██████╗ ██╗   ██╗████████╗██╗   ██╗
+        ██╔══██╗╚██╗ ██╔╝╚══██╔══╝██║   ██║
+        ██║  ██║ ╚████╔╝    ██║   ██║   ██║
+        ██║  ██║  ╚██╔╝     ██║   ╚██╗ ██╔╝
+        ██████╔╝   ██║      ██║    ╚████╔╝ 
+        ╚═════╝    ╚═╝      ╚═╝     ╚═══╝  
+                                        
+            Download You Tube Videos
+        CLI for YouTube Video Downloader
                         """)
 
 def show_menu_items():
@@ -32,7 +33,7 @@ def show_menu_items():
 2) Download a Playlist
 3) Download videos of a Channel
 Others:
-    4) Backstory
+    4) Why Free?
     5) Credits
     6) Contributors
     7) Privacy Policy
@@ -232,6 +233,9 @@ it for free and make it open source... First i tried creating
 a GUI and i got it to work but except for the command of the
 download button. I realized i am a dumb idiot who can't create
 a command properly... then i made this CLI version
+
+Edit: I did it successfully! and today, both of the versions
+      will be released
 
                    made by ZeaCeR#5641
                         1) Home 
