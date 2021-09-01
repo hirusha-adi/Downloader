@@ -144,7 +144,6 @@ class Toplevel1:
         # 320kbps -> 15
 
 
-
         # Radio Button Variable for Usage Type
         # -----------------------
         self.vidut = tk.IntVar()
@@ -152,6 +151,53 @@ class Toplevel1:
         # Playlist -> 1
         # a Video -> 2
         # Channel -> 3
+
+        # FUCKING QUALITY
+        # -----------------------
+        def select_dl_quality(selectquality):
+                if selectquality == 10:
+                        return "2160p"
+                elif selectquality == 9:
+                        return "1440p"
+                elif selectquality == 1:
+                        return "1080p"
+                elif selectquality == 2:
+                        return "720p"
+                elif selectquality == 3:
+                        return "480p"
+                elif selectquality == 4:
+                        return "360p"
+                elif selectquality == 5:
+                        return "240p"
+                elif selectquality == 6:
+                        return "144p"
+                elif selectquality == 7:
+                        return "32kbps"
+                elif selectquality == 8:
+                        return "64kbps"
+                elif selectquality == 11:
+                        return "128kbps"
+                elif selectquality == 12:
+                        return "160kbps"
+                elif selectquality == 13:
+                        return "192kbps"
+                elif selectquality == 14:
+                        return "256kbps"
+                elif selectquality == 15:
+                        return "320kbps"
+                else:   
+                        print("[*] Selected default - Something is wrong! Please report to a developer")
+                        return "480p"
+        
+        def select_dl_type(fuckingshit=2):
+                if fuckingshit == 1:
+                        return "playlist"
+                elif fuckingshit == 2:
+                        return "video"
+                elif fuckingshit == 3:
+                        return "channel"
+                else:
+                        return "video"
 
 
 
@@ -162,6 +208,14 @@ class Toplevel1:
                 rsvrb = self.vidrf.get()
                 return rsvrb
         
+        # What type of download?
+        # -----------------------
+        def selected_download_type():
+                rsvub = self.vidut.get()
+                return rsvub
+
+
+
         # Menu Bar commands - Files Cascade
         # -----------------------
         # Paset URL
@@ -197,6 +251,36 @@ class Toplevel1:
         
         def others_help():
                 webbrowser.open(importantstuff.helplink)
+        
+
+# ###############################################################
+# This is most likely where i fuck up
+
+
+        # DOWNLOAD FUNCTIONS
+        # Level 1
+        def download_first_level():
+                videoquality = selected_val()
+                whattypeofdl = selected_download_type()
+
+                qualityintexttp = select_dl_quality(videoquality)
+                downloadtypeintexttp = select_dl_type(whattypeofdl)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         self.Topic = tk.Label(top)
         self.Topic.place(relx=-0.017, rely=0.0, height=50, width=614)
@@ -234,6 +318,7 @@ class Toplevel1:
         self.btnpaste.configure(highlightcolor="#000000")
         self.btnpaste.configure(pady="0")
         self.btnpaste.configure(text='''+ Paste''')
+        self.btnpaste.configure(command=paste_yt_url)
 
         self.btndownload = tk.Button(top)
         self.btndownload.place(relx=0.033, rely=0.595, height=84, width=337)
@@ -247,6 +332,7 @@ class Toplevel1:
         self.btndownload.configure(highlightcolor="black")
         self.btndownload.configure(pady="0")
         self.btndownload.configure(text='''⬇ Download''')
+        self.btndownload.configure(command=download_first_level)
 
         self.Button1 = tk.Button(top)
         self.Button1.place(relx=0.883, rely=0.243, height=54, width=57)
@@ -642,6 +728,11 @@ class Toplevel1:
         self.p1080_1_1_1_1_1.configure(variable=home_support.selectedButton)
         self.p1080_1_1_1_1_1.configure(variable=self.vidut)
         self.p1080_1_1_1_1_1.configure(value=3)
+
+
+
+
+
 
 if __name__ == '__main__':
     vp_start_gui()
