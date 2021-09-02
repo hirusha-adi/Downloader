@@ -13,6 +13,10 @@ except ImportError:
     import tkinter.ttk as ttk
     py3 = True
 
+def set_Tk_var():
+    global selectedButton
+    selectedButton = tk.IntVar()
+
 def init(top, gui, *args, **kwargs):
     global w, top_level, root
     w = gui
@@ -26,8 +30,8 @@ def destroy_window():
     top_level = None
 
 # if __name__ == '__main__':
-#     import whyfree
-#     whyfree.vp_start_gui()
+#     import home
+#     home.vp_start_gui()
 
 
 
