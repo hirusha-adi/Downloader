@@ -488,8 +488,6 @@ class Toplevel1:
         self.p480.configure(justify='left')
         self.p480.configure(text='''480p''')
         self.p480.configure(variable=home_support.selectedButton)
-        self.p480.configure(variable=self.vidrf)
-        self.p480.configure(value=3)
 
         self.p360 = tk.Radiobutton(top)
         self.p360.place(relx=0.633, rely=0.8, relheight=0.057, relwidth=0.18)
@@ -751,8 +749,8 @@ class Toplevel1:
         self.f320kbps.configure(justify='left')
         self.f320kbps.configure(text='''320kbps''')
         self.f320kbps.configure(variable=home_support.selectedButton)
-        self.f256kbps.configure(variable=self.vidrf)
-        self.f256kbps.configure(value=15)
+        self.f320kbps.configure(variable=self.vidrf)
+        self.f320kbps.configure(value=15)
 
         self.TSeparator2 = ttk.Separator(top)
         self.TSeparator2.place(relx=0.617, rely=0.432,  relwidth=0.4)
@@ -805,7 +803,6 @@ class Toplevel1:
         self.p1080_1_1_1_1_1.configure(justify='left')
         self.p1080_1_1_1_1_1.configure(text='''Channel''')
         self.p1080_1_1_1_1_1.configure(variable=home_support.selectedButton)
-        self.p1080_1_1_1_1_1.configure(variable=self.vidut)
         self.p1080_1_1_1_1_1.configure(value=3)
 
 

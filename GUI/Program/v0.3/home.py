@@ -30,7 +30,23 @@ except ImportError:
                 os.system("pip3 install clipboard")
         import clipboard
 
-import webbrowser
+try:
+        import webbrowser
+except ImportError:
+        if platform.system().lower().startswith('win'):
+                os.system("pip install clipboard")
+        else:
+                os.system("pip3 install clipboard")
+        import webbrowser
+
+try:
+        import requests
+except ImportError:
+        if platform.system().lower().startswith('win'):
+                os.system("pip install clipboard")
+        else:
+                os.system("pip3 install clipboard")
+        import requests
 
 try:
         from pytube import *
@@ -41,17 +57,20 @@ except ImportError:
                 os.system("pip3 install pytube")
         from pytube import *
 
+
 # Import - Support
 # -----------------------
 import home_support
 import importantstuff
 
+
 # Import - Other Windows
 # -----------------------
-# import whyfree
 import credits
 
 
+# SUPPORT FUNCTIONS
+# -----------------------
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
@@ -79,6 +98,9 @@ def destroy_MainWindowHome():
     w.destroy()
     w = None
 
+
+# GUI - Starts here
+# -----------------------
 class MainWindowHome:
     def __init__(self, top=None):
         '''This class configures and populates the toplevel window.
@@ -107,6 +129,10 @@ class MainWindowHome:
         top.configure(highlightcolor="black")
 
 
+        # -----------------------
+        # ALL FUNCTIONS OF THE BUTTONS STARTS HERE
+        # -----------------------
+
         # PASE BUTTONS
         # Get a string from what is in your clipboard, clear the entry and insert it
         # -----------------------
@@ -114,6 +140,7 @@ class MainWindowHome:
                 self.clipboarddata_yturl = clipboard.paste() 
                 self.urlhere.delete(0,"end")
                 self.urlhere.insert(0, self.clipboarddata_yturl)
+
 
         # CLEAR BUTTONS
         # -----------------------
@@ -123,10 +150,12 @@ class MainWindowHome:
         def clear_filepath():
                 self.pathhere.delete(0, "end")
                 
+
         # Radio Button Variable for Video Quality / Format
         # -----------------------
         self.vidrf = tk.IntVar()
         self.vidrf.set("2")
+        # Videos
         # 2160p -> 10
         # 1440p -> 9
         # 1080p -> 1
@@ -136,6 +165,7 @@ class MainWindowHome:
         # 240p -> 5
         # 144p -> 6 
 
+        # Audios
         # 32kbps -> 7
         # 64kbps -> 8
         # 128kbps -> 11
@@ -153,9 +183,26 @@ class MainWindowHome:
         # a Video -> 2
         # Channel -> 3
 
-        # FUCKING QUALITY
+
+        # VIDEO QUALITY - Value Return
         # -----------------------
         def select_dl_quality(selectquality):
+                # These are the numbers i used for the radio buttons (tk.IntVar)
+                # 1080p -> 1
+                # 720p -> 2
+                # 480p -> 3
+                # 360p -> 4
+                # 240p -> 5
+                # 144p -> 6
+                # 32  -> 7
+                # 64  -> 8
+                # 1440p -> 9
+                # 2160p -> 10
+                # 128 -> 11
+                # 160 -> 12
+                # 192 -> 13
+                # 256 -> 14
+                # 320 -> 15
                 if selectquality == 10:
                         return "2160p"
                 elif selectquality == 9:
@@ -190,6 +237,9 @@ class MainWindowHome:
                         print("[*] Selected default - Something is wrong! Please report to a developer")
                         return "480p"
         
+
+        # Download type
+        # -----------------------
         def select_dl_type(fuckingshit=2):
                 if fuckingshit == 1:
                         return "playlist"
@@ -202,20 +252,18 @@ class MainWindowHome:
                         return "video"
 
 
-
-
-        # Get the value of the selected Radio Button
+        # Get the value of the selected Radio Button - Quality/Formate
         # -----------------------
         def selected_val():
                 rsvrb = self.vidrf.get()
                 return rsvrb
         
+
         # What type of download?
         # -----------------------
         def selected_download_type():
                 rsvub = self.vidut.get()
                 return rsvub
-
 
 
         # Menu Bar commands - Files Cascade
@@ -230,30 +278,23 @@ class MainWindowHome:
         
         # Menu Bar commands - Others Cascade
         # -----------------------
-
         # Credits
         def others_credits():
                 top.destroy()
                 credits.vp_start_gui()
         
-        # Contributers
-        # I thought of not adding an seperate windows for this
-        # Instead, this will open the github repo links contributers part
-        # Its the same for Privacy Policy and Help
-
+        # Privacy Policy - Open in browser - link from importantstuff.py
         def others_privacy_policy():
                 webbrowser.open(importantstuff.privacy_policy)
         
+        # Help - Open in browser - link from importantstuff.py
         def others_help():
                 webbrowser.open(importantstuff.helplink)
         
 
-        # ###############################################################
-        # This is most likely where i fuck up
-
-
         # DOWNLOAD FUNCTIONS
-        # Level 1
+        # -----------------------
+        # Level 1 - Download a YT video or Some other file
         def download_first_level():
                 videoquality = selected_val()
                 whattypeofdl = selected_download_type()
@@ -263,29 +304,65 @@ class MainWindowHome:
 
                 fuckingurlmf = self.urlhere.get()
 
-                if downloadtypeintexttp == "video":
-                        # fkingshit.FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
-                        FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=fuckingurlmf)
+                # if the link is a YouTube link 
+                # -----------------------
+                ytlistfuck = ("www.youtube.com", "youtube.com", "youtube", "youtu.be")
 
-                elif downloadtypeintexttp == "playlist":
-                        pl = Playlist(f'{fuckingurlmf}')
-                        for url in pl.video_urls:
-                                FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=url)
-                
-                elif downloadtypeintexttp == "channel":
-                        cl = Channel(f'{fuckingurlmf}')
-                        for url in cl.video_urls:
-                                FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=url)
-                
-                else:
+                if fuckingurlmf.split("/")[:3][-1] in ytlistfuck:
+
                         if downloadtypeintexttp == "video":
                                 # fkingshit.FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
-                                FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
+                                FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=fuckingurlmf)
+
+                        elif downloadtypeintexttp == "playlist":
+                                pl = Playlist(f'{fuckingurlmf}')
+                                for url in pl.video_urls:
+                                        FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=url)
+                        
+                        elif downloadtypeintexttp == "channel":
+                                cl = Channel(f'{fuckingurlmf}')
+                                for url in cl.video_urls:
+                                        FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=url)
+                        
+                        else:
+                                if downloadtypeintexttp == "video":
+                                        # fkingshit.FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
+                                        FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
+
+                # if the link is not a YouTube link 
+                # -----------------------
+                else:   
+                        try:    
+                                try:
+                                        filename = fuckingurlmf.split(".")[-1]
+                                        print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
+                                except:
+                                        try:
+                                                filename = fuckingurlmf.split("/")[-2]
+                                                print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
+                                        except:
+                                                filename = "unable_to_get_file_name"
+                                                print(f"[!] Using filename: unable_to_get_file_name")
+
+                                try:
+                                        r = requests.get(f"{fuckingurlmf}").content
+                                except:
+                                        print("\n[-] Unable to Download the file!")
+                                        return
+                                
+                                try:
+                                        with open(f"{filename}", "wb") as filergetnoyt:
+                                                filergetnoyt.write(r)
+                                        print(f"[+] Created file {filename} successfully!")
+                                except:
+                                        print("\n[-] Unable to create a file!")
+                                        return
+
+                        except:
+                                print("\n[-] Unable to Download the file!")
 
 
-
-
-        # Level 2 - The main download function
+        # Level 2 - The YouTube download function
         def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
                 print(f"[*] Recieved a download quality of {qualityvid} to {urlvid}")
                 try:
@@ -358,6 +435,10 @@ class MainWindowHome:
                                                 print(f"[+] File downloaded successfully!\n{video}")
                                         except:
                                                 print("[!!] FAILED")
+
+        # -----------------------
+        # The Functions end here
+
 
         self.Topic = tk.Label(top)
         self.Topic.place(relx=-0.014, rely=0.021, height=65, width=721)
@@ -438,6 +519,9 @@ class MainWindowHome:
         self.Topic_1.configure(highlightcolor="black")
         self.Topic_1.configure(text='''Link''')
 
+
+        # 1080p -> 1
+
         self.p1080 = tk.Radiobutton(top)
         self.p1080.place(relx=0.057, rely=0.696, relheight=0.055, relwidth=0.123)
 
@@ -454,6 +538,8 @@ class MainWindowHome:
         self.p1080.configure(variable=self.vidrf)
         self.p1080.configure(value=1)
 
+
+        # 720p -> 2
         self.p720 = tk.Radiobutton(top)
         self.p720.place(relx=0.057, rely=0.795, relheight=0.055, relwidth=0.123)
         self.p720.configure(activebackground="#ececec")
@@ -469,6 +555,7 @@ class MainWindowHome:
         self.p720.configure(variable=self.vidrf)
         self.p720.configure(value=2)
 
+        # 480p -> 3
         self.p480 = tk.Radiobutton(top)
         self.p480.place(relx=0.199, rely=0.497, relheight=0.055, relwidth=0.122)
         self.p480.configure(activebackground="#ececec")
@@ -484,6 +571,7 @@ class MainWindowHome:
         self.p480.configure(variable=self.vidrf)
         self.p480.configure(value=3)
 
+        # 360p -> 4
         self.p360 = tk.Radiobutton(top)
         self.p360.place(relx=0.199, rely=0.595, relheight=0.057, relwidth=0.123)
         self.p360.configure(activebackground="#ececec")
@@ -499,6 +587,7 @@ class MainWindowHome:
         self.p360.configure(variable=self.vidrf)
         self.p360.configure(value=4)
 
+        # 240p -> 5 
         self.p240 = tk.Radiobutton(top)
         self.p240.place(relx=0.199, rely=0.696, relheight=0.055, relwidth=0.123)
         self.p240.configure(activebackground="#ececec")
@@ -514,6 +603,7 @@ class MainWindowHome:
         self.p240.configure(variable=self.vidrf)
         self.p240.configure(value=5)
 
+        # 144p -> 6
         self.p144 = tk.Radiobutton(top)
         self.p144.place(relx=0.199, rely=0.795, relheight=0.055, relwidth=0.123)
         self.p144.configure(activebackground="#ececec")
@@ -529,6 +619,7 @@ class MainWindowHome:
         self.p144.configure(variable=self.vidrf)
         self.p144.configure(value=6)
 
+        # 64kbps -> 8
         self.f64kbps = tk.Radiobutton(top)
         self.f64kbps.place(relx=0.525, rely=0.591, relheight=0.055
                 , relwidth=0.149)
@@ -545,7 +636,7 @@ class MainWindowHome:
         self.f64kbps.configure(variable=self.vidrf)
         self.f64kbps.configure(value=8)
         
-
+        # 32kbps -> 7
         self.f32kbps = tk.Radiobutton(top)
         self.f32kbps.place(relx=0.525, rely=0.69, relheight=0.055
                 , relwidth=0.148)
@@ -562,7 +653,6 @@ class MainWindowHome:
         self.f32kbps.configure(variable=self.vidrf)
         self.f32kbps.configure(value=7)
         
-
         self.TSeparator1 = ttk.Separator(top)
         self.TSeparator1.place(relx=0.335, rely=0.48,  relheight=0.398)
         self.TSeparator1.configure(orient="vertical")
@@ -618,6 +708,7 @@ class MainWindowHome:
         self.Lcreditsbottom.configure(highlightcolor="black")
         self.Lcreditsbottom.configure(text='''Downloader by ZeaCeR#5641 - v0.3''')
 
+        # 1440p -> 9
         self.p1080_1 = tk.Radiobutton(top)
         self.p1080_1.place(relx=0.057, rely=0.595, relheight=0.057
                 , relwidth=0.123)
@@ -631,8 +722,10 @@ class MainWindowHome:
         self.p1080_1.configure(highlightcolor="black")
         self.p1080_1.configure(justify='left')
         self.p1080_1.configure(text='''1440p''')
-        self.p1080_1.configure(variable=home_support.selectedButton)
+        self.p1080_1.configure(variable=self.vidrf)
+        self.p1080_1.configure(value=9)
 
+        # 2160p -> 10
         self.p1080_1_1 = tk.Radiobutton(top)
         self.p1080_1_1.place(relx=0.057, rely=0.497, relheight=0.057
                 , relwidth=0.123)
@@ -646,8 +739,10 @@ class MainWindowHome:
         self.p1080_1_1.configure(highlightcolor="black")
         self.p1080_1_1.configure(justify='left')
         self.p1080_1_1.configure(text='''2160p''')
-        self.p1080_1_1.configure(variable=home_support.selectedButton)
+        self.p1080_1_1.configure(variable=self.vidrf)
+        self.p1080_1_1.configure(value=10)
 
+        # 128 -> 11
         self.f128kbps = tk.Radiobutton(top)
         self.f128kbps.place(relx=0.525, rely=0.497, relheight=0.055
                 , relwidth=0.148)
@@ -661,8 +756,10 @@ class MainWindowHome:
         self.f128kbps.configure(highlightcolor="black")
         self.f128kbps.configure(justify='left')
         self.f128kbps.configure(text='''128kbps''')
-        self.f128kbps.configure(variable=home_support.selectedButton)
+        self.f128kbps.configure(variable=self.vidrf)
+        self.f128kbps.configure(value=11)
 
+        # 160kbps -> 12
         self.f160kbps = tk.Radiobutton(top)
         self.f160kbps.place(relx=0.355, rely=0.795, relheight=0.055
                 , relwidth=0.149)
@@ -676,8 +773,10 @@ class MainWindowHome:
         self.f160kbps.configure(highlightcolor="black")
         self.f160kbps.configure(justify='left')
         self.f160kbps.configure(text='''160kbps''')
-        self.f160kbps.configure(variable=home_support.selectedButton)
+        self.f160kbps.configure(variable=self.vidrf)
+        self.f160kbps.configure(value=12)
 
+        # 192 -> 13
         self.f192kbps = tk.Radiobutton(top)
         self.f192kbps.place(relx=0.355, rely=0.696, relheight=0.055
                 , relwidth=0.149)
@@ -691,8 +790,10 @@ class MainWindowHome:
         self.f192kbps.configure(highlightcolor="black")
         self.f192kbps.configure(justify='left')
         self.f192kbps.configure(text='''192kbps''')
-        self.f192kbps.configure(variable=home_support.selectedButton)
+        self.f192kbps.configure(variable=self.vidrf)
+        self.f192kbps.configure(value=13)
 
+        # 256 -> 14
         self.f256kbps = tk.Radiobutton(top)
         self.f256kbps.place(relx=0.355, rely=0.595, relheight=0.057
                 , relwidth=0.149)
@@ -706,8 +807,10 @@ class MainWindowHome:
         self.f256kbps.configure(highlightcolor="black")
         self.f256kbps.configure(justify='left')
         self.f256kbps.configure(text='''256kbps''')
-        self.f256kbps.configure(variable=home_support.selectedButton)
+        self.f256kbps.configure(variable=self.vidrf)
+        self.f256kbps.configure(value=14)
 
+        # 320 -> 15
         self.f320kbps = tk.Radiobutton(top)
         self.f320kbps.place(relx=0.355, rely=0.497, relheight=0.057
                 , relwidth=0.149)
@@ -721,8 +824,11 @@ class MainWindowHome:
         self.f320kbps.configure(highlightcolor="black")
         self.f320kbps.configure(justify='left')
         self.f320kbps.configure(text='''320kbps''')
-        self.f320kbps.configure(variable=home_support.selectedButton)
+        self.f320kbps.configure(variable=self.vidrf)
+        self.f320kbps.configure(value=15)
 
+        # FORMAT SELECT
+        # Playlist
         self.p1080_1_1_1 = tk.Radiobutton(top)
         self.p1080_1_1_1.place(relx=0.028, rely=0.38, relheight=0.06
                 , relwidth=0.18)
@@ -736,8 +842,10 @@ class MainWindowHome:
         self.p1080_1_1_1.configure(highlightcolor="black")
         self.p1080_1_1_1.configure(justify='left')
         self.p1080_1_1_1.configure(text='''Playlist''')
-        self.p1080_1_1_1.configure(variable=home_support.selectedButton)
+        self.p1080_1_1_1.configure(variable=self.vidut)
+        self.p1080_1_1_1.configure(value=1)
 
+        # single Video
         self.p1080_1_1_1_1 = tk.Radiobutton(top)
         self.p1080_1_1_1_1.place(relx=0.255, rely=0.38, relheight=0.06
                 , relwidth=0.18)
@@ -751,8 +859,10 @@ class MainWindowHome:
         self.p1080_1_1_1_1.configure(highlightcolor="black")
         self.p1080_1_1_1_1.configure(justify='left')
         self.p1080_1_1_1_1.configure(text='''Video''')
-        self.p1080_1_1_1_1.configure(variable=home_support.selectedButton)
+        self.p1080_1_1_1_1.configure(variable=self.vidut)
+        self.p1080_1_1_1_1.configure(value=2)
 
+        # Channel
         self.p1080_1_1_1_1_1 = tk.Radiobutton(top)
         self.p1080_1_1_1_1_1.place(relx=0.482, rely=0.38, relheight=0.06
                 , relwidth=0.18)
@@ -766,11 +876,16 @@ class MainWindowHome:
         self.p1080_1_1_1_1_1.configure(highlightcolor="black")
         self.p1080_1_1_1_1_1.configure(justify='left')
         self.p1080_1_1_1_1_1.configure(text='''Channel''')
-        self.p1080_1_1_1_1_1.configure(variable=home_support.selectedButton)
+        self.p1080_1_1_1_1_1.configure(variable=self.vidut)
+        self.p1080_1_1_1_1_1.configure(value=3)
 
         self.TSeparator2 = ttk.Separator(top)
         self.TSeparator2.place(relx=0.681, rely=0.476,  relheight=0.4)
         self.TSeparator2.configure(orient="vertical")
+
+
+
+
 
 if __name__ == '__main__':
     vp_start_gui()
