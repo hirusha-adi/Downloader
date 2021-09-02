@@ -1,4 +1,4 @@
-import os, webbrowser
+import os, webbrowser, requests
 from pytube import *
 
 class Info:
@@ -12,15 +12,16 @@ def START_PROGRAM():
 
 def show_logo():
     print("""       
-        ██╗   ██╗████████╗██╗   ██╗██████╗ 
-        ╚██╗ ██╔╝╚══██╔══╝██║   ██║██╔══██╗
-         ╚████╔╝    ██║   ██║   ██║██║  ██║
-          ╚██╔╝     ██║   ╚██╗ ██╔╝██║  ██║
-           ██║      ██║    ╚████╔╝ ██████╔╝
-           ╚═╝      ╚═╝     ╚═══╝  ╚═════╝ 
-                                   
-             YouTube Video Downloader
-         CLI for YouTube Video Downloader
+                 ██████╗ ██╗     
+                 ██╔══██╗██║     
+                 ██║  ██║██║     
+                 ██║  ██║██║     
+                 ██████╔╝███████╗
+                 ╚═════╝ ╚══════╝
+
+                   Downloader
+               CLI for Downloader
+                  Discontinued
                         """)
 
 def show_menu_items():
@@ -34,6 +35,7 @@ Others:
     4) Credits
     5) Privacy Policy
     6) Help
+7) Download Others
 99) Exit
     """)
 
@@ -263,7 +265,7 @@ def ENTIRE_PROGRAM():
                 webbrowser.open("https://github.com/hirusha-adi/YouTube-Video-Downloader/blob/main/help.md")
                 ENTIRE_PROGRAM()
         
-        if mmo == "3":
+        elif mmo == "3":
                 os.system("cls")
                 show_logo()
                 show_all_qualities()
@@ -287,6 +289,40 @@ def ENTIRE_PROGRAM():
                         for url in cl.video_urls:
                                 DOWNLOAD_VIDEO(qualityvid=selectquality, urlvid=url)
                 return
+
+        elif mmo == "7":
+                link = input("[?] Please enter the link: ")
+                try:    
+                        try:
+                                filename = link.split("/")[-1]
+                                if filename == "":
+                                        filename = link.split("/")[-2]
+                                else:
+                                        print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
+                                
+                        except:
+                                try:
+                                        filename = link.split(".")[-2:]
+                                        print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
+                                except:
+                                        filename = "unable_to_get_file_name"
+                                        print(f"[!] Using filename: unable_to_get_file_name")
+                        try:
+                                r = requests.get(f"{link}").content
+                        except:
+                                print("\n[-] Unable to Download the file!")
+                                return
+                        
+                        try:
+                                with open(f"{filename}", "wb") as filergetnoyt:
+                                        filergetnoyt.write(r)
+                                print(f"[+] Created file {filename} successfully!")
+                        except:
+                                print("\n[-] Unable to create a file!")
+                                return
+                except:
+                        print("\n[-] Unable to Download the file!")
+                print()
 
         elif mmo == "99":
                 exit()
