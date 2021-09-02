@@ -328,17 +328,27 @@ class MainWindowHome:
                                 if downloadtypeintexttp == "video":
                                         # fkingshit.FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
                                         FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
+                
+                elif fuckingurlmf.lower() == "help":
+                        others_help()
+                
+                elif fuckingurlmf.lower() == "pp":
+                        others_privacy_policy()
 
                 # if the link is not a YouTube link 
                 # -----------------------
                 else:   
                         try:    
                                 try:
-                                        filename = fuckingurlmf.split(".")[-1]
-                                        print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
+                                        filename = fuckingurlmf.split("/")[-1]
+                                        if filename == "":
+                                                filename = fuckingurlmf.split("/")[-2]
+                                        else:
+                                                print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
+                                        
                                 except:
                                         try:
-                                                filename = fuckingurlmf.split("/")[-2]
+                                                filename = fuckingurlmf.split(".")[-2:]
                                                 print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
                                         except:
                                                 filename = "unable_to_get_file_name"
@@ -691,7 +701,8 @@ class MainWindowHome:
         self.menubar.add_cascade(menu=self.sub_menu1,
                 label="Others")
         self.sub_menu1.add_command(
-                label="Credits")
+                label="Credits",
+                command=others_credits)
 
         self.TSeparator1_1 = ttk.Separator(top)
         self.TSeparator1_1.place(relx=0.044, rely=0.476,  relheight=0.398)
@@ -887,8 +898,8 @@ class MainWindowHome:
 
 
 
-if __name__ == '__main__':
-    vp_start_gui()
+# if __name__ == '__main__':
+#     vp_start_gui()
 
 
 
