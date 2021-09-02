@@ -21,7 +21,7 @@ def show_logo():
 
                    Downloader
                CLI for Downloader
-                  Discontinued
+                 Final Version
                         """)
 
 def show_menu_items():
