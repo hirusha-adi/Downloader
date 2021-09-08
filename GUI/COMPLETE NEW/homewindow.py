@@ -401,9 +401,12 @@ else:
     sub_menu_three.add_command(label="Credits", command=window_credits, state="disabled")
 sub_menu_two = Menu(window, tearoff=0)
 menubar.add_cascade(menu=sub_menu_two, label="Others")
+sub_menu_two.add_command(label="Support Us", command=lambda: webbrowser.open("https://www.youtube.com/c/HirushaAdikari?sub_confirmation=1"))
 sub_menu_two.add_command(label="Privacy Policy", command=others_privacy_policy)
 sub_menu_two.add_command(label="Source Code", command=others_source_code)
 sub_menu_two.add_command(label="Help", command=others_help)
+
+
 
 # Radio Buttons - Download Type
 # --------------------
