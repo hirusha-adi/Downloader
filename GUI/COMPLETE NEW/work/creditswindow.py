@@ -14,7 +14,15 @@ import webbrowser, os, images
 if "start.exe" in os.listdir(os.getcwd()) or "home.exe" in os.listdir(os.getcwd()):
     pass
 else:
-    images.CREATE_ALL_IMAGES()
+    try:
+        if "background2.png" in os.listdir(f"{os.getcwd()}\\assets") and "background.png" in os.listdir(f"{os.getcwd()}\\assets"):
+            pass
+        else:
+            images.CREATE_ALL_IMAGES()
+    except Exception as e:
+        # print(e)
+        images.CREATE_ALL_IMAGES()
+
 
 
 # Tkinter window
@@ -23,6 +31,7 @@ creditswin = Tk()
 creditswin.geometry("786x518")
 creditswin.configure(bg = "#e3ffdc")
 creditswin.resizable(False, False)
+creditswin.title("Downloader - Credits")
 
 
 # Functions

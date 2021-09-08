@@ -17,7 +17,15 @@ import images
 
 # Creating Images
 # --------------------
-images.CREATE_ALL_IMAGES()
+try:
+    if "background2.png" in os.listdir(f"{os.getcwd()}\\assets") and "background.png" in os.listdir(f"{os.getcwd()}\\assets"):
+        pass
+    else:
+        images.CREATE_ALL_IMAGES()
+except Exception as e:
+    # print(e)
+    images.CREATE_ALL_IMAGES()
+# images.CREATE_ALL_IMAGES()
 
 
 # Tkinter window
@@ -27,6 +35,7 @@ window = Tk()
 window.resizable(False, False)
 window.geometry("786x518")
 window.configure(bg="#e3ffdc")
+window.title("Downloader - Home")
 
 
 # Functions
@@ -220,10 +229,10 @@ def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
     print("[+] Object Initiated")
     print(f"\nExtracting Information: \n[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
     try:
-        with open(f"{yt.title} - Information.txt", "w") as fileinfotxt:
+        with open(f"{yt.title} - Information.txt", "w", encoding="utf8") as fileinfotxt:
             fileinfotxt.write(f"[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
     except:
-        with open(f"{yt.title.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')} - Information.txt", "w") as fileinfotxt:
+        with open(f"{yt.title.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')} - Information.txt", "w", encoding="utf8") as fileinfotxt:
             fileinfotxt.write(f"[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
     print(f"[+] Wrote Information to {yt.title} - Information.txt")
     print("\n[*] Trying to download subtitles/captions")
@@ -231,10 +240,10 @@ def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
         caption = yt.captions.get_by_language_code('en')
         print("[+] Successfully loaded subtitles/captions")
         try:
-            with open(f"{yt.title}.srt", "w") as filesrt:
+            with open(f"{yt.title}.srt", "w", encoding="utf8") as filesrt:
                 filesrt.write(caption.generate_srt_captions())
         except OSError:
-            with open(f"{yt.title.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}.srt", "w") as filesrt:
+            with open(f"{yt.title.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}.srt", "w", encoding="utf8") as filesrt:
                 filesrt.write(caption.generate_srt_captions())
         print("[+] Created a .srt file!")
     except:
