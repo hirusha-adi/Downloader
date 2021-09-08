@@ -328,13 +328,13 @@ class MainWindowHome:
                                 if downloadtypeintexttp == "video":
                                         # fkingshit.FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
                                         FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
-                
+                                        
                 elif fuckingurlmf.lower() == "help":
                         others_help()
                 
                 elif fuckingurlmf.lower() == "pp":
                         others_privacy_policy()
-
+                        
                 # if the link is not a YouTube link 
                 # -----------------------
                 else:   
@@ -689,6 +689,7 @@ class MainWindowHome:
                 command=quitapp_whole)
         self.menubar.add_separator(
 )
+
         self.sub_menu1 = tk.Menu(top,
                 activebackground="#ececec",
                 activeborderwidth=1,
