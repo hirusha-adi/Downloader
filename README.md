@@ -3,7 +3,8 @@ YouTube Video Downloader Free | has both a CLI version and a GUI version
 
 # GUI Version - Images
 
-![image](https://user-images.githubusercontent.com/36286877/131883726-fe93ce07-c299-4136-a888-fb4bbdc270fe.png)
+<!-- ![image](https://user-images.githubusercontent.com/36286877/131883726-fe93ce07-c299-4136-a888-fb4bbdc270fe.png) -->
+
 
 
 
