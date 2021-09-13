@@ -158,11 +158,11 @@ def others_help():
 # The playsound command
 # This is in a different function to run this on another thread ig
 # -----------------------
-def play_sound_when_click(filepath=".\\sounds\\starting_to_download.mp3"):
+def play_sound_when_click(filepath=".\\assets\\starting_to_download.mp3"):
     playsound(filepath)
 
 def download_very_first_level():
-    thread_ps = Thread(target=play_sound_when_click, args=(".\\sounds\\starting_to_download.mp3",))
+    thread_ps = Thread(target=play_sound_when_click, args=(".\\assets\\starting_to_download.mp3",))
     thread_dl_one = Thread(target=download_first_level)
     thread_ps.start()
     thread_dl_one.start()
