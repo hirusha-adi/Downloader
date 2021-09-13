@@ -61,11 +61,15 @@ def RUN_CREDITS():
     except:
         messagebox.showerror("Error!", "Unable to find credits.exe")
 
+# def play_credits_welcome_sound():
+#     playsound("assets\\whatsup_glip_glops.mp3")
 
 def window_credits():
+    # thr_audio = Thread(target=play_credits_welcome_sound)
+    # thr_audio.start()
     window.destroy()
     RUN_CREDITS()
-    pass
+
 
 # Download Type
 vidut = IntVar()

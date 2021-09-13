@@ -27,3 +27,4 @@ except Exception as e:
 finally:
     images.DELETE_ALL()
     # pass
+    

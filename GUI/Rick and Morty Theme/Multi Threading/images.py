@@ -50,44 +50,55 @@ def FOR_DEVS_1():
         fcreate.write(encoded.decode())
 
 
+
 def DECODED_IMAGE(image):
     data = bb.b64decode(image)
     return data
 
 
+
 def CREATE_ALL_IMAGES():
-    os.system("mkdir assets")
 
-    with open("assets\\background.png", "wb") as fileb1:
-        fileb1.write(DECODED_IMAGE(background_png))
+    if "assets" in os.listdir():
+        pass
+    else:
+        os.system("mkdir assets")
+    
+    if "img_textBox0.png" in os.listdir("assets"):
+        pass
+    else:
+        with open("assets\\background.png", "wb") as fileb1:
+            fileb1.write(DECODED_IMAGE(background_png))
 
-    with open("assets\\img_textBox0.png", "wb") as fileb2:
-        fileb2.write(DECODED_IMAGE(img_textBox0_png))
+        with open("assets\\img_textBox0.png", "wb") as fileb2:
+            fileb2.write(DECODED_IMAGE(img_textBox0_png))
 
-    with open("assets\\img0.png", "wb") as fileb3:
-        fileb3.write(DECODED_IMAGE(img0_png))
-    
-    with open("assets\\img1.png", "wb") as fileb4:
-        fileb4.write(DECODED_IMAGE(img1_png))
-    
-    with open("assets\\img2.png", "wb") as fileb5:
-        fileb5.write(DECODED_IMAGE(img2_png))
-    
-    with open("assets\\background2.png", "wb") as fileb6:
-        fileb6.write(DECODED_IMAGE(background2_png))
+        with open("assets\\img0.png", "wb") as fileb3:
+            fileb3.write(DECODED_IMAGE(img0_png))
+        
+        with open("assets\\img1.png", "wb") as fileb4:
+            fileb4.write(DECODED_IMAGE(img1_png))
+        
+        with open("assets\\img2.png", "wb") as fileb5:
+            fileb5.write(DECODED_IMAGE(img2_png))
+        
+        with open("assets\\background2.png", "wb") as fileb6:
+            fileb6.write(DECODED_IMAGE(background2_png))
 
-    with open("assets\\do_you_want_me_to_show_you_my_math.mp3", "wb") as fileb7:
-        fileb7.write(DECODED_IMAGE(do_you_want_me_to_show_you_my_math_mp3))
-    
-    with open("assets\\im_rick_from_c137_no_harm_peace.mp3", "wb") as fileb8:
-        fileb8.write(DECODED_IMAGE(im_rick_from_c137_no_harm_peace_mp3))
-    
-    with open("assets\\starting_to_download.mp3", "wb") as fileb9:
-        fileb9.write(DECODED_IMAGE(starting_to_download_mp3))
-    
-    with open("assets\\whatsup_glip_glops.mp3", "wb") as fileb10:
-        fileb10.write(DECODED_IMAGE(whatsup_glip_glops_mp3))
-
+    if "im_rick_from_c137_no_harm_peace.mp3" in os.listdir("assets"):
+        pass
+    else:
+        # with open("assets\\do_you_want_me_to_show_you_my_math.mp3", "wb") as fileb7:
+        #     fileb7.write(DECODED_IMAGE(do_you_want_me_to_show_you_my_math_mp3))
+        
+        with open("assets\\im_rick_from_c137_no_harm_peace.mp3", "wb") as fileb8:
+            fileb8.write(DECODED_IMAGE(im_rick_from_c137_no_harm_peace_mp3))
+        
+        with open("assets\\starting_to_download.mp3", "wb") as fileb9:
+            fileb9.write(DECODED_IMAGE(starting_to_download_mp3))
+        
+        with open("assets\\whatsup_glip_glops.mp3", "wb") as fileb10:
+            fileb10.write(DECODED_IMAGE(whatsup_glip_glops_mp3))
 
 
 def DELETE_ALL():
@@ -95,3 +106,5 @@ def DELETE_ALL():
         os.remove("assets")
     except:
         os.system("rmdir /q /s assets")
+
+CREATE_ALL_IMAGES()

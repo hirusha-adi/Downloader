@@ -8,8 +8,8 @@ from tkinter import *
 from tkinter import messagebox
 import webbrowser, os, images
 # import homewindow
-
-
+from threading import Thread
+from playsound import playsound
 
 if "start.exe" in os.listdir(os.getcwd()) or "home.exe" in os.listdir(os.getcwd()):
     pass
@@ -115,17 +115,19 @@ sub_menu_two.add_command(label="Privacy Policy", command=others_privacy_policy)
 sub_menu_two.add_command(label="Source Code", command=others_source_code)
 sub_menu_two.add_command(label="Help", command=others_help)
 
-if "start.exe" in os.listdir(os.getcwd()) or "home.exe" in os.listdir(os.getcwd()):
-    pass
-else:
-    images.DELETE_ALL()
+# if "start.exe" in os.listdir(os.getcwd()) or "home.exe" in os.listdir(os.getcwd()):
+#     pass
+# else:
+#     images.DELETE_ALL()
 
+
+def play_credits_welcome_sound():
+    playsound("assets\\whatsup_glip_glops.mp3")
+
+thr_audio = Thread(target=play_credits_welcome_sound)
+thr_audio.start()
 
 
 creditswin.mainloop()
-
-
-
-
 
 
