@@ -1,8 +1,9 @@
 import os, webbrowser, requests
 from pytube import *
+from youtubesearchpython import VideosSearch
 
 class Info:
-        VERSION = "0.1"
+        VERSION = "0.5"
         CREATOR = "ZeaCeR#5641"
 
 all_audio_qualities_tup = ("32kbps", "64kbps", "128kbps", "160kbps", "192kbps", "240kbps", "256kbps", "320kbps")
@@ -21,7 +22,7 @@ def show_logo():
 
                    Downloader
                CLI for Downloader
-                 Final Version
+                      v0.5
                         """)
 
 def show_menu_items():
@@ -36,6 +37,7 @@ Others:
     5) Privacy Policy
     6) Help
 7) Download Others
+8) Search a video and download
 99) Exit
     """)
 
@@ -107,9 +109,9 @@ def select_dl_quality():
 def DOWNLOAD_VIDEO(qualityvid, urlvid):
         try:
                 yt = YouTube(urlvid)
-        except VideoUnavailable:
-                print("[!!] VIDEO UNAVAILABLE!")
-                return
+        # except VideoUnavailable:
+        #         print("[!!] VIDEO UNAVAILABLE!")
+        #         return
         except Exception as e:
                 print("Error", e)
                 return
@@ -327,6 +329,77 @@ def ENTIRE_PROGRAM():
                 except:
                         print("\n[-] Unable to Download the file!")
                 print()
+
+        elif mmo == "8":
+                os.system("cls")
+                show_logo()
+                show_all_qualities()
+
+                selectquality = select_dl_quality()
+
+                whattosearch = input("[?] Please enter what to search for: ")
+                # add a open in webbroser feature to the GUI with a checkbox to enable and disable it
+                videosSearch = VideosSearch(f'{whattosearch}', limit = 1)
+                mainresult = videosSearch.result()["result"]
+                video_index = mainresult[0]
+
+                video_link = video_index["link"]
+                download_type = video_index["type"]
+
+                try:
+                        print(f"""
++ Selected {video_index["title"]}
+Type: {download_type}
+Publisehd Time: {video_index["publishedTime"]}
+Duration: {video_index["duration"]}
+View Count: {video_index["viewCount"]["text"]}
+Video Thumbnail: {video_index["thumbnails"][0]["url"]}
+Uploaded channel name: {video_index["channel"]["name"]}
+Video Link: {video_link}
+                        """)
+                except:
+                        print("[+] Selected video: Title: {video_index['title']}")
+
+                if download_type == "video":
+                        DOWNLOAD_VIDEO(qualityvid=selectquality, urlvid=video_link)
+
+                elif download_type == "channel":
+                        allorsome = input("[?] Do you want to download all videos in the channel: ")
+                        
+                        no_wl = ["n", "no", "nope", "dont"]
+                        
+                        if allorsome.lower() in no_wl:
+                                cl = Channel(f'{video_link}')
+                                whatno2dl = int(input("[?] How many videos do you want to download: "))
+                                # whatno2dl -= 1
+                                for url in cl.video_urls[:whatno2dl]:
+                                        DOWNLOAD_VIDEO(qualityvid=selectquality, urlvid=url)
+
+                        else:
+                                cl = Channel(f'{video_link}')
+                                for url in cl.video_urls:
+                                        DOWNLOAD_VIDEO(qualityvid=selectquality, urlvid=url)
+                        return
+
+                else:
+                        allorsome = input("[?] Do you want to download all videos in the playlist: ")
+                
+                        no_wl = ["n", "no", "nope", "dont"]
+                        
+                        if allorsome.lower() in no_wl:
+                                pl = Playlist(f'{video_link}')
+                                whatno2dl = int(input("[?] How many videos do you want to download: "))
+                                # whatno2dl -= 1
+                                for url in pl.video_urls[:whatno2dl]:
+                                        DOWNLOAD_VIDEO(qualityvid=selectquality, urlvid=url)
+
+                        else:
+                                pl = Playlist(f'{video_link}')
+                                for url in pl.video_urls:
+                                        DOWNLOAD_VIDEO(qualityvid=selectquality, urlvid=url)
+                        
+                        return
+                
 
         elif mmo == "99":
                 exit()
