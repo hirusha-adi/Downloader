@@ -220,9 +220,9 @@ def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
     print(f"[*] Recieved a download quality of {qualityvid} to {urlvid}")
     try:
         yt = YouTube(urlvid)
-    except VideoUnavailable:
-        print("[!!] VIDEO UNAVAILABLE!")
-        return
+    # except VideoUnavailable:
+    #     print("[!!] VIDEO UNAVAILABLE!")
+    #     return
     except Exception as e:
         print("Error", e)
         return
