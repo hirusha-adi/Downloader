@@ -37,7 +37,7 @@ Others:
     5) Privacy Policy
     6) Help
 7) Download Others
-8) Search a video and download
+8) Search and download
 99) Exit
     """)
 
