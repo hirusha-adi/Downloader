@@ -41,6 +41,12 @@ window.title("Downloader - Home")
 
 # Functions
 # --------------------
+def exit_program():
+    try:
+        exit()
+    except:
+        quit()
+
 def clear_yt_url():
     entry0.delete(0, "end")
 
@@ -169,6 +175,7 @@ def download_first_level():
     # -----------------------
     ytlistfuck = ("www.youtube.com", "youtube.com", "youtube", "youtu.be")
     if fuckingurlmf.split("/")[:3][-1] in ytlistfuck:
+            print("-------------------------\nFOUND A YOUTUBE LINK - DOWNLOADING\n-------------------------")
             if downloadtypeintexttp == "video":
                 FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=fuckingurlmf)
 
@@ -188,54 +195,58 @@ def download_first_level():
                     FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
                             
     elif fuckingurlmf.lower() == "help":
+        print("-------------------------\nOPENING HELP IN WEB BROWSER\n-------------------------")
         others_help()
-    elif fuckingurlmf.lower() == "pp":
-        others_privacy_policy()
-    else:
-        pass
 
-    if fuckingurlmf.lower().startswith('http') or fuckingurlmf.lower().startswith('https'):   
-        try:    
-            try:
-                filename = fuckingurlmf.split("/")[-1]
-                if filename == "":
-                        filename = fuckingurlmf.split("/")[-2]
-                else:
-                        print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
-                
-            except:
-                try:
-                        filename = fuckingurlmf.split(".")[-2:]
-                        print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
-                except:
-                        filename = "unable_to_get_file_name"
-                        print(f"[!] Using filename: unable_to_get_file_name")
-            try:
-                r = requests.get(f"{fuckingurlmf}").content
-            except:
-                print("\n[-] Unable to Download the file!")
-                return
-            
-            try:
-                with open(f"{filename}", "wb") as filergetnoyt:
-                        filergetnoyt.write(r)
-                print(f"[+] Created file {filename} successfully!")
-            except:
-                print("\n[-] Unable to create a file!")
-                return
-        except:
-                print("\n[-] Unable to Download the file!")
+    elif fuckingurlmf.lower() == "pp":
+        print("-------------------------\nOPENING PRIVACY POLICY IN WEB BROWSER\n-------------------------")
+        others_privacy_policy()
     
     else:
-        videosSearch = VideosSearch(f'{fuckingurlmf}', limit = 1)
-        mainresult = videosSearch.result()["result"]
-        video_index = mainresult[0]
+        if fuckingurlmf.lower().startswith('http') or fuckingurlmf.lower().startswith('https'):   
+            print("-------------------------\nFOUND A NON YOUTUBE LINK\n-------------------------")
+            try:    
+                try:
+                    filename = fuckingurlmf.split("/")[-1]
+                    if filename == "":
+                            filename = fuckingurlmf.split("/")[-2]
+                    else:
+                            print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
+                    
+                except:
+                    try:
+                            filename = fuckingurlmf.split(".")[-2:]
+                            print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
+                    except:
+                            filename = "unable_to_get_file_name"
+                            print(f"[!] Using filename: unable_to_get_file_name")
+                try:
+                    r = requests.get(f"{fuckingurlmf}").content
+                except:
+                    print("\n[-] Unable to Download the file!")
+                    return
+                
+                try:
+                    with open(f"{filename}", "wb") as filergetnoyt:
+                            filergetnoyt.write(r)
+                    print(f"[+] Created file {filename} successfully!")
+                except:
+                    print("\n[-] Unable to create a file!")
+                    return
+            except:
+                    print("\n[-] Unable to Download the file!")
+        
+        else:
+            print("-------------------------\nSEARCHING VIDEO NAME IN YOUTUBE\n-------------------------")
+            videosSearch = VideosSearch(f'{fuckingurlmf}', limit = 1)
+            mainresult = videosSearch.result()["result"]
+            video_index = mainresult[0]
 
-        video_link = video_index["link"]
-        download_type = video_index["type"]
+            video_link = video_index["link"]
+            download_type = video_index["type"]
 
-        try:
-            print(f"""
+            try:
+                print(f"""
 [+] Selected: {video_index["title"]}
 [+] Type: {download_type}
 [+] Publisehd Time: {video_index["publishedTime"]}
@@ -244,22 +255,25 @@ def download_first_level():
 [+] Video Thumbnail: {video_index["thumbnails"][0]["url"]}
 [+] Uploaded channel name: {video_index["channel"]["name"]}
 [+] Video Link: {video_link}
-""")
-        except:
-            print("[+] Selected video: Title: {video_index['title']}")
+    """)
+            except:
+                print("[+] Selected video: Title: {video_index['title']}")
 
-        if download_type == "video":
-            FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=video_link)
-        
-        elif download_type == "channel":            
-            cl = Channel(f'{video_link}')
-            for url in cl.video_urls:
-                FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=url)
+            if download_type == "video":
+                print("-------------------------\nDOWNLOADING VIDEO\n-------------------------")
+                FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=video_link)
+            
+            elif download_type == "channel":            
+                cl = Channel(f'{video_link}')
+                print("-------------------------\nFOUND A YOUTUBE CHANNEL\n-------------------------")
+                for url in cl.video_urls:
+                    FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=url)
 
-        else:
-            pl = Playlist(f'{video_link}')
-            for url in pl.video_urls:
-                FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=url)
+            else:
+                pl = Playlist(f'{video_link}')
+                print("-------------------------\nFOUND A YOUTUBE PLAYLIST\n-------------------------")
+                for url in pl.video_urls:
+                    FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, urlvid=url)
 
 
 def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
@@ -389,7 +403,7 @@ menubar.add_cascade(menu=sub_menu, label="Main")
 sub_menu.add_command(label="Download", command=download_very_first_level)
 sub_menu.add_command(label="Paste URL", command=paste_yt_url)
 sub_menu.add_command(label="Clear URL", command=clear_yt_url)
-sub_menu.add_command(label="Exit", command=lambda: exit())
+sub_menu.add_command(label="Exit", command=exit_program)
 
 sub_menu_three = Menu(window, tearoff=0)
 menubar.add_cascade(menu=sub_menu_three, label="Windows")
@@ -489,3 +503,4 @@ f256kbps.place(x=575, y=290)
 f320kbps = Radiobutton(canvas, text="320kbps", bg="#e3ffdc", activebackground="#e3ffdc")
 f320kbps.configure(variable=vidrf, value=15)
 f320kbps.place(x=497, y=320)
+
