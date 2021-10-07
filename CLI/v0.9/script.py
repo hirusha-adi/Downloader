@@ -455,12 +455,26 @@ Video Link: {video_link}
                         
                         return
         
-        
+
         elif mmo == "88":
                 os.system("cls")
                 print(f"[+] Current Version: {Info.VERSION}")
-                requests.get()
-                
+                latest_version = requests.get("https://raw.githubusercontent.com/hirusha-adi/Downloader/main/update/vcli.txt").text
+                if str(latest_version) == Info.VERSION:
+                        print("[+]No updates available\n[+] Downloader - CLI - is upto date!")
+                        return
+                else:
+                        print("[+] Update available")
+                        print("[+] Starting to update")
+                        new_version_dl_link = requests.get("https://raw.githubusercontent.com/hirusha-adi/Downloader/main/update/cli.txt").text
+                        print(f"[+] Recieved download link:", new_version_dl_link)
+                        print("[+] Downloading file...")
+                        new_version_data = requests.get(new_version_dl_link).content
+                        print("[+] Download complete!")
+                        with open(f"Downloader_{latest_version}.exe") as updated_version_file:
+                                updated_version_file.write(new_version_data)
+                        print(f"Created file: Downloader_{latest_version}.exe")
+
 
         elif mmo == "99":
                 exit()
