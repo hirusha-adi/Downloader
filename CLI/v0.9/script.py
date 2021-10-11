@@ -117,29 +117,31 @@ def DOWNLOAD_VIDEO(qualityvid:str, urlvid:str, subs:bool=False, videoinformation
                 print("Error", e)
                 return
 
-        print(f"\nExtracting Information: \n[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
-        
-        try:
-                with open(f"{yt.title} - Information.txt", "w", encoding="utf8") as fileinfotxt:
-                        fileinfotxt.write(f"[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
-        except:
-                with open(f"{yt.title.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')} - Information.txt", "w", encoding="utf8") as fileinfotxt:
-                        fileinfotxt.write(f"[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
-        
-        print(f"[+] Wrote Information to {yt.title} - Information.txt")
-        print("\n[*] Trying to download subtitles/captions")
-        try:
-                caption = yt.captions.get_by_language_code('en')
-                print("[+] Successfully loaded subtitles/captions")
+        if videoinformationyn:
+                print(f"""\nExtracting Information: \n[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}""")
                 try:
-                        with open(f"{yt.title}.srt", "w", encoding="utf8") as filesrt:
-                                filesrt.write(caption.generate_srt_captions())
-                except OSError:
-                        with open(f"{yt.title.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}.srt", "w", encoding="utf8") as filesrt:
-                                filesrt.write(caption.generate_srt_captions())
-                print("[+] Created a .srt file!")
-        except:
-                print("[-] Unable to download subtitles")
+                        with open(f"""{yt.title} - Information.txt""", "w", encoding="utf8") as fileinfotxt:
+                                fileinfotxt.write(f"""[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}""")
+                except:
+                        with open(f"""{yt.title.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')} - Information.txt", "w""", encoding="utf8") as fileinfotxt:
+                                fileinfotxt.write(f"""[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}""")
+        
+                print(f"[+] Wrote Information to {yt.title} - Information.txt")
+        
+        if subs:
+                print("\n[*] Trying to download subtitles/captions")
+                try:
+                        caption = yt.captions.get_by_language_code('en')
+                        print("[+] Successfully loaded subtitles/captions")
+                        try:
+                                with open(f"""{yt.title}.srt", "w", encoding="utf8""") as filesrt:
+                                        filesrt.write(caption.generate_srt_captions())
+                        except OSError:
+                                with open(f"""{yt.title.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}.srt""", "w", encoding="utf8") as filesrt:
+                                        filesrt.write(caption.generate_srt_captions())
+                        print("[+] Created a .srt file!")
+                except:
+                        print("[-] Unable to download subtitles")
         
         if qualityvid in all_audio_qualities_tup:
                 print("\n[*] Trying to downlod the audio")
@@ -346,12 +348,12 @@ def ENTIRE_PROGRAM():
                                 if filename == "":
                                         filename = link.split("/")[-2]
                                 else:
-                                        print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
+                                        print(f"""[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}""")
                                 
                         except:
                                 try:
                                         filename = link.split(".")[-2:]
-                                        print(f"[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}")
+                                        print(f"""[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x')}""")
                                 except:
                                         filename = "unable_to_get_file_name"
                                         print(f"[!] Using filename: unable_to_get_file_name")
