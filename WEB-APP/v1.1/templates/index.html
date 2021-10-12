@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloader v1.1</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <style>
+
+        .tracking-in-expand {
+            font-size: 300%;
+            text-align: center;
+            color: #FFFFFF;
+	        -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	        animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+        }
+
+        @-webkit-keyframes tracking-in-expand {
+        0% {
+            letter-spacing: -0.5em;
+            opacity: 0;
+        }
+        40% {
+            opacity: 0.6;
+        }
+        100% {
+            opacity: 1;
+        }
+        }
+        @keyframes tracking-in-expand {
+        0% {
+            letter-spacing: -0.5em;
+            opacity: 0;
+        }
+        40% {
+            opacity: 0.6;
+        }
+        100% {
+            opacity: 1;
+        }
+        }
+
+        .content {
+            max-width: 500px;
+            margin: auto;
+            padding-top: 17%;
+        }
+
+        body{
+            background-image: url({{ url_for('static', filename='image.JPG') }});
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            /* display: flex; */
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+    <div class="content col s12 center-align">
+
+        <h1 class="tracking-in-expand">Downloader v1.1</h1>
+
+
+        <form action="" method="post">
+            
+            <!-- ROW 1 -->
+            <div class="row">
+                <div class="input-field col s8 offset-s2">
+                    <i class="material-icons prefix" style="color: #FFFFFF;">link</i>
+                    <input type="text" name="url" class="validate" id="url" style="color: #FFFFFF;">
+                    <label for="url">Enter Video URL here</label>
+                </div>       
+            </div>
+
+            <!-- ROW 2 -->
+            <div class="row text-center">
+                <div class="input-field col s12 d-flex justify-content-center center">
+                    <button type="submit" value="Download" class="btn waves-effect waves-light btn-large pink accent-2 offset-s2 mx-auto">Download</button>
+                </div>
+            </div>
+        
+        </form>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+
+        $(document).ready(
+            function () {
+                M.AutoInit();
+            }
+        );
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloader v1.1</title>
+
+    <script>
+        function show(){
+            var container = document.getElementById("show");
+            container.innerHTML = "<div class='col s12 center-align'><h4 style='color: #FFFFFF;''>Starting to download!</h4></div>";
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+    <style>
+
+        .content {
+            max-width: 500px;
+            margin: auto;
+            padding-top: 17%;
+        }
+
+        body{
+            background-image: url({{ url_for('static', filename='image.JPG') }});
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            /* display: flex; */
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+    <div class="content">
+
+
+        <h1 style="color: #FFFFFF;">{{ filetitle }}</h1>
+
+        <form action="{{ url_for('download_video') }}" method="post">
+
+            <!-- ROW 1 - Video Title -->
+            <div class="row">
+                <div class="col s12 center-align">
+                    <h3 style="color: #FFFFFF;">{{ url.title }}</h3>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- ROW 2 - Quality Select -->
+            <div class="row">
+                <div class="input-field col s8 offset-s2">
+                    <select name="itag" style="color: #FFFFFF;">
+                        {% for i in url.streams %}
+                            {% if i.resolution == None %}
+                                <option style="color: #FFFFFF;" value="{{ i.itag }}">Audio - {{i.abr}}  -  {{ i.mime_type }}</option>
+                                {% endif %}
+                        {% endfor %}
+
+                        {% for i in url.streams.filter(progressive=True) %}
+                            <option style="color: #FFFFFF;" value="{{ i.itag }}">Video - {{i.resolution}}  -  {{ i.mime_type }}</option>
+                        {% endfor %}
+                    </select>
+                    <label>Select Resolution, Quality, Format</label>
+                </div>
+            </div>
+
+            <!-- ROW 3 - Download Button -->
+            <div class="row">
+                <div class="input-field col s12 center">
+                    <button type="submit" value="Download" onclick="show()" class="btn waves-effect waves-light btn-large pink accent-2">
+                        Download
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+        <div id="show"></div>
+
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(
+            function () {
+                M.AutoInit();
+            }
+        );
+    </script>
+
+</body>
+</html>
