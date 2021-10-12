@@ -36,21 +36,15 @@ def index():
 def download_video():
     if request.method == 'POST':
         try:
-            try:
-                url = YouTube(session['link'])
-                itag = request.form.get('itag')
-                video = url.streams.get_by_itag(itag)
-            
-            except:
-                return render_template("failed.html")
-            
-            filename = video.download()
-            return send_file(filename, as_attachment=True)
-        finally:
-            try:
-                os.remove(filename)
-            except:
-                os.system(f"rm -rf {filename}")
+            url = YouTube(session['link'])
+            itag = request.form.get('itag')
+            video = url.streams.get_by_itag(itag)
+        
+        except:
+            return render_template("failed.html")
+        
+        filename = video.download()
+        return send_file(filename, as_attachment=True)
 
     return redirect(url_for('index'))
 
