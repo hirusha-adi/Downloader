@@ -60,7 +60,7 @@ def download_video():
             
         except:
             logging.exception("Failed download")
-            return render_template("failed.html")
+            return render_template("fail.html")
 
 
 @app.route("/download_audio", methods=["POST"])
@@ -88,4 +88,4 @@ def download_audio():
         
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8090, debug=False)
+    app.run(host='0.0.0.0', port=8080, debug=False)
