@@ -5,9 +5,11 @@
 
 # Downlaoder v1.1 - Web
 
+- You can search the video name to download.
 - Both music and video qualitites can now be selected in one page.
 - Available qualities are labeled in detail (including file format)
 - A detailed error webpage as the original exception raised by the code.
+- NOTE: Anything that starts with `https` will be considered a link. Please keep this in mind when you are trying to download a video by searching it
 
 # Downlaoder v1.0 - Web
 
