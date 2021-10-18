@@ -3,6 +3,18 @@
 - If there is something that im not sure for it to work, i create a new CLI version and check weather it is. If it works, i will add it to the GUI version.
 - `X.Y.Z` - The `Z` will not always be a new version, it is just a patch for `X.Y`
 
+# Downlaoder v1.1 - Web
+
+- Both music and video qualitites can now be selected in one page.
+- Available qualities are labeled in detail (including file format)
+- A detailed error webpage as the original exception raised by the code.
+
+# Downlaoder v1.0 - Web
+
+- Created a simple reponsive web app for Downloader with flask
+- There are seperate buttons for both video and audio download. You **cannot** select the audio quality. The best available will be downloaded.
+- Hosted on replit
+
 # Downlaoder v0.9 - CLI
 
 - Update (Completely automatic, checks for updates and if there is a new version, it will download the new file to the current working directory,if there is no update, nothing will be downloaded) - this can be selected via the home menu
