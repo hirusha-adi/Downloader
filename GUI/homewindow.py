@@ -1,3 +1,7 @@
+__title__ = "Downloader"
+__author__ = "ZeaCeR#5641"
+__version__ = "v1.2"
+
 # #########################
 # Made by ZeaCeR#5641
 # a.k.a Hirusha Adikari
@@ -102,15 +106,15 @@ def select_dl_quality(selectquality):
     # 360p -> 4
     # 240p -> 5
     # 144p -> 6
-    # 32  -> 7
-    # 64  -> 8
+    # 32kbps  -> 7
+    # 64kbps  -> 8
     # 1440p -> 9
     # 2160p -> 10
-    # 128 -> 11
-    # 160 -> 12
-    # 192 -> 13
-    # 256 -> 14
-    # 320 -> 15
+    # 128kbps -> 11
+    # 160kbps -> 12
+    # 192kbps -> 13
+    # 256kbps -> 14
+    # 320kbps -> 15
     if selectquality == 10:
         return "2160p"
     elif selectquality == 9:
@@ -224,7 +228,6 @@ def download_first_level():
 
         else:
             if downloadtypeintexttp == "video":
-                # fkingshit.FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid=qualityintexttp, vidurl=fuckingurlmf)
                 FUCKING_DOWNLOAD_ONE_VIDEO(
                     qualityvid=qualityintexttp, vidurl=fuckingurlmf)
 
