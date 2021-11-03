@@ -30,11 +30,13 @@ else:
     BSP = "/"
 
 # ARGS when running the program
-if str(sys.argv[1]).lower().startswith('n'):
-    show_text = False
-else:
+try:
+    if str(sys.argv[1]).lower().startswith('n'):
+        show_text = False
+    else:
+        show_text = True
+except:
     show_text = True
-
 
 # Creating Images
 # --------------------
@@ -140,7 +142,9 @@ def select_dl_quality(selectquality):
     elif selectquality == 15:
         return "320kbps"
     else:
-        print("[*] Selected default - Something is wrong! Please report to a developer")
+        if show_text:
+            print(
+                "[*] Selected default - Something is wrong! Please report to a developer")
         return "480p"
 
 
@@ -152,8 +156,9 @@ def select_dl_type(fuckingshit=2):
     elif fuckingshit == 3:
         return "channel"
     else:
-        print(
-            "[*] Selecting Default value: Video - Something is wrong, please report to a developer")
+        if show_text:
+            print(
+                "[*] Selecting Default value: Video - Something is wrong, please report to a developer")
         return "video"
 
 
@@ -198,7 +203,9 @@ def download_first_level():
     # -----------------------
     ytlistfuck = ("www.youtube.com", "youtube.com", "youtube", "youtu.be")
     if fuckingurlmf.split("/")[:3][-1] in ytlistfuck:
-        print("-------------------------\nFOUND A YOUTUBE LINK - DOWNLOADING\n-------------------------")
+        if show_text:
+            print(
+                "-------------------------\nFOUND A YOUTUBE LINK - DOWNLOADING\n-------------------------")
         if downloadtypeintexttp == "video":
             FUCKING_DOWNLOAD_ONE_VIDEO(
                 qualityvid=qualityintexttp, urlvid=fuckingurlmf)
@@ -222,52 +229,65 @@ def download_first_level():
                     qualityvid=qualityintexttp, vidurl=fuckingurlmf)
 
     elif fuckingurlmf.lower() == "help":
-        print("-------------------------\nOPENING HELP IN WEB BROWSER\n-------------------------")
+        if show_text:
+            print(
+                "-------------------------\nOPENING HELP IN WEB BROWSER\n-------------------------")
         others_help()
 
     elif fuckingurlmf.lower() == "pp":
-        print("-------------------------\nOPENING PRIVACY POLICY IN WEB BROWSER\n-------------------------")
+        if show_text:
+            print(
+                "-------------------------\nOPENING PRIVACY POLICY IN WEB BROWSER\n-------------------------")
         others_privacy_policy()
 
     else:
         if fuckingurlmf.lower().startswith('http') or fuckingurlmf.lower().startswith('https'):
-            print(
-                "-------------------------\nFOUND A NON YOUTUBE LINK\n-------------------------")
+            if show_text:
+                print(
+                    "-------------------------\nFOUND A NON YOUTUBE LINK\n-------------------------")
             try:
                 try:
                     filename = fuckingurlmf.split("/")[-1]
                     if filename == "":
                         filename = fuckingurlmf.split("/")[-2]
                     else:
-                        print(
-                            f"""[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x').replace('"', "x").replace("'", "x")}""")
+                        if show_text:
+                            print(
+                                f"""[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x').replace('"', "x").replace("'", "x")}""")
                 except:
                     try:
                         filename = fuckingurlmf.split(".")[-2:]
-                        print(
-                            f"""[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x').replace('"', "x").replace("'", "x")}""")
+                        if show_text:
+                            print(
+                                f"""[+] Using filename: {filename.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x').replace('"', "x").replace("'", "x")}""")
                     except:
                         filename = "unable_to_get_file_name"
-                        print(f"[!] Using filename: unable_to_get_file_name")
+                        if show_text:
+                            print(f"[!] Using filename: unable_to_get_file_name")
                 try:
                     r = requests.get(f"{fuckingurlmf}").content
                 except:
-                    print("\n[-] Unable to Download the file!")
+                    if show_text:
+                        print("\n[-] Unable to Download the file!")
                     return
 
                 try:
                     with open(f"{filename}", "wb") as filergetnoyt:
                         filergetnoyt.write(r)
-                    print(f"[+] Created file {filename} successfully!")
+                    if show_text:
+                        print(f"[+] Created file {filename} successfully!")
                 except:
-                    print("\n[-] Unable to create a file!")
+                    if show_text:
+                        print("\n[-] Unable to create a file!")
                     return
             except:
-                print("\n[-] Unable to Download the file!")
+                if show_text:
+                    print("\n[-] Unable to Download the file!")
 
         else:
-            print(
-                "-------------------------\nSEARCHING VIDEO NAME IN YOUTUBE\n-------------------------")
+            if show_text:
+                print(
+                    "-------------------------\nSEARCHING VIDEO NAME IN YOUTUBE\n-------------------------")
             videosSearch = VideosSearch(f'{fuckingurlmf}', limit=1)
             mainresult = videosSearch.result()["result"]
             video_index = mainresult[0]
@@ -275,8 +295,9 @@ def download_first_level():
             video_link = video_index["link"]
             download_type = video_index["type"]
 
-            try:
-                print(f"""
+            if show_text:
+                try:
+                    print(f"""
 [+] Selected: {video_index["title"]}
 [+] Type: {download_type}
 [+] Publisehd Time: {video_index["publishedTime"]}
@@ -286,27 +307,30 @@ def download_first_level():
 [+] Uploaded channel name: {video_index["channel"]["name"]}
 [+] Video Link: {video_link}
     """)
-            except:
-                print(f"[+] Selected video: Title: {video_index['title']}")
+                except:
+                    print(f"[+] Selected video: Title: {video_index['title']}")
 
             if download_type == "video":
-                print(
-                    "-------------------------\nDOWNLOADING VIDEO\n-------------------------")
+                if show_text:
+                    print(
+                        "-------------------------\nDOWNLOADING VIDEO\n-------------------------")
                 FUCKING_DOWNLOAD_ONE_VIDEO(
                     qualityvid=qualityintexttp, urlvid=video_link)
 
             elif download_type == "channel":
                 cl = Channel(f'{video_link}')
-                print(
-                    "-------------------------\nFOUND A YOUTUBE CHANNEL\n-------------------------")
+                if show_text:
+                    print(
+                        "-------------------------\nFOUND A YOUTUBE CHANNEL\n-------------------------")
                 for url in cl.video_urls:
                     FUCKING_DOWNLOAD_ONE_VIDEO(
                         qualityvid=qualityintexttp, urlvid=url)
 
             else:
                 pl = Playlist(f'{video_link}')
-                print(
-                    "-------------------------\nFOUND A YOUTUBE PLAYLIST\n-------------------------")
+                if show_text:
+                    print(
+                        "-------------------------\nFOUND A YOUTUBE PLAYLIST\n-------------------------")
                 for url in pl.video_urls:
                     FUCKING_DOWNLOAD_ONE_VIDEO(
                         qualityvid=qualityintexttp, urlvid=url)
@@ -317,13 +341,14 @@ def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
     download_subtitles = int(dlsubs.get())
     download_information = int(dlvidinfo.get())
 
-    print(f"[*] Recieved a download quality of {qualityvid} to {urlvid}")
+    if show_text:
+        print(f"[*] Recieved a download quality of {qualityvid} to {urlvid}")
 
-    if download_subtitles:
-        print(f"[*] Downloading subtitles")
+        if download_subtitles:
+            print(f"[*] Downloading subtitles")
 
-    if download_information:
-        print(f"[*] Downloading information")
+        if download_information:
+            print(f"[*] Downloading information")
 
     try:
         yt = YouTube(urlvid)
@@ -331,25 +356,32 @@ def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
     #     print("[!!] VIDEO UNAVAILABLE!")
     #     return
     except Exception as e:
-        print("Error", e)
+        print("Error:", e)
         return
-    print("[+] Video Initiated")
+    if show_text:
+        print("[+] Video Initiated")
+
+    print("[+] Starting to download:", f"{yt.title}")
 
     if download_information:
-        print(f"\nExtracting Information: \n[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
+        if show_text:
+            print(f"\nExtracting Information: \n[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
         try:
             with open(f"{yt.title} - Information.txt", "w", encoding="utf8") as fileinfotxt:
                 fileinfotxt.write(f"[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
         except:
             with open(f"""{yt.title.replace('|', 'x').replace('?', 'x').replace('>', 'x').replace('<', 'x').replace(':', 'x').replace(';', 'x').replace('"', "x").replace("'", "x")} - Information.txt""", "w", encoding="utf8") as fileinfotxt:
                 fileinfotxt.write(f"[+]Title: {yt.title} \n[+]Thumnail URL: {yt.thumbnail_url} \n[+]Author: {yt.author} \n[+]Channel ID: {yt.channel_id} \n[+]Channel URL: {yt.channel_url} \n[+]Video Length: {yt.length} \n[+]Published Date:{yt.publish_date} \n[+]Age Restricted: {yt.age_restricted} \n[+]Video URL: {urlvid} \n[+]Video Description: {yt.description}")
-        print(f"[+] Wrote Information to {yt.title} - Information.txt")
+        if show_text:
+            print(f"[+] Wrote Information to {yt.title} - Information.txt")
 
     if download_subtitles:
-        print("\n[*] Trying to download subtitles/captions")
+        if show_text:
+            print("\n[*] Trying to download subtitles/captions")
         try:
             caption = yt.captions.get_by_language_code('en')
-            print("[+] Successfully loaded subtitles/captions")
+            if show_text:
+                print("[+] Successfully loaded subtitles/captions")
             try:
                 try:
                     with open(f"{yt.title}.srt", "w", encoding="utf8") as filesrt:
@@ -368,59 +400,73 @@ def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
                         caption.generate_srt_captions()
                     except:
                         pass
-            print("[+] Created a .srt file!")
+            if show_text:
+                print("[+] Created a .srt file!")
         except:
-            print("[-] Unable to download subtitles")
+            if show_text:
+                print("[-] Unable to download subtitles")
 
     all_audio_qualities_tup = ("32kbps", "64kbps", "128kbps",
                                "160kbps", "192kbps", "240kbps", "256kbps", "320kbps")
 
     if qualityvid in all_audio_qualities_tup:
-        print("\n[*] Trying to downlod the audio")
+        if show_text:
+            print("\n[*] Trying to downlod the audio")
         try:
             video = yt.streams.filter(only_audio=True).filter(
                 abr=f"{qualityvid}").first().download()
-            print(f"[+] File downloaded successfully!\n{video}")
+            if show_text:
+                print(f"[+] File downloaded successfully!\n{video}")
         except:
-            print(
-                "[*] Trying to download with the highest available quality for the audio")
+            if show_text:
+                print(
+                    "[*] Trying to download with the highest available quality for the audio")
             try:
                 video = yt.streams.filter(only_audio=True).last().download()
-                print(f"[+] File downloaded successfully!\n{video}")
+                if show_text:
+                    print(f"[+] File downloaded successfully!\n{video}")
             except:
-                print("[-] Failed!")
-                print(
-                    "[*] Trying to download with the lowest available quality for the audio")
+                if show_text:
+                    print(
+                        "[*] Trying to download with the lowest available quality for the audio")
                 try:
                     video = yt.streams.filter(
                         only_audio=True).first().download()
-                    print(f"[+] File downloaded successfully!\n{video}")
+                    if show_text:
+                        print(f"[+] File downloaded successfully!\n{video}")
                 except:
-                    print("[!!] FAILED")
+                    if show_text:
+                        print("[!!] FAILED")
 
     else:
-        print("\n[*] Trying to downlod the video")
+        if show_text:
+            print("\n[*] Trying to downlod the video")
         try:
             video = yt.streams.filter(res=f"{qualityvid}").filter(
                 progressive=True).first().download()
-            print(f"[+] File downloaded successfully!\n{video}")
+            if show_text:
+                print(f"[+] File downloaded successfully!\n{video}")
         except:
-            print(
-                "[*] Trying to download with the highest available quality for the video")
+            if show_text:
+                print(
+                    "[*] Trying to download with the highest available quality for the video")
             try:
                 video = yt.streams.filter(
                     progressive=True).get_highest_resolution().download()
-                print(f"[+] File downloaded successfully!\n{video}")
+                if show_text:
+                    print(f"[+] File downloaded successfully!\n{video}")
             except:
-                print("[-] Failed!")
-                print(
-                    "[*] Trying to download with the lowest available quality for the video")
+                if show_text:
+                    print(
+                        "[*] Trying to download with the lowest available quality for the video")
                 try:
                     video = yt.streams.filter(
                         progressive=True).get_highest_resolution()
-                    print(f"[+] File downloaded successfully!\n{video}")
+                    if show_text:
+                        print(f"[+] File downloaded successfully!\n{video}")
                 except:
-                    print("[!!] FAILED")
+                    if show_text:
+                        print("[!!] FAILED")
 
 
 # Canvas
