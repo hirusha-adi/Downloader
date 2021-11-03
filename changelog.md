@@ -3,6 +3,12 @@
 - If there is something that im not sure for it to work, i create a new CLI version and check weather it is. If it works, i will add it to the GUI version.
 - `X.Y.Z` - The `Z` will not always be a new version, it is just a patch for `X.Y`
 
+# Downloader v1.2 - GUI
+
+- Multi Platform Support (mainly beacuse i switched to arch)
+- No seperate window for credits
+- This is kind of light weight now
+
 # Downlaoder v1.1 - Web
 
 - You can search the video name to download.
