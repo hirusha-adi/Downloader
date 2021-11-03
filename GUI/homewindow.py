@@ -6,6 +6,7 @@
 
 from tkinter import *
 import os
+import sys
 import platform
 import clipboard
 import webbrowser
@@ -28,6 +29,12 @@ else:
     CLEAR = "clear"
     BSP = "/"
 
+# ARGS when running the program
+if str(sys.argv[1]).lower().startswith('n'):
+    show_text = False
+else:
+    show_text = True
+
 
 # Creating Images
 # --------------------
@@ -48,7 +55,7 @@ window = Tk()
 window.resizable(False, False)
 window.geometry("786x518")
 window.configure(bg="#e3ffdc")
-window.title("Downloader - Home")
+window.title("Downloader")
 
 
 # Functions
@@ -68,10 +75,6 @@ def paste_yt_url():
     clipboarddata_yturl = clipboard.paste()
     entry0.delete(0, "end")
     entry0.insert(0, clipboarddata_yturl)
-
-
-def window_home():
-    messagebox.showinfo("Home", "You are already in home!")
 
 
 # Download Type
@@ -478,13 +481,10 @@ sub_menu.add_command(label="Paste URL", command=paste_yt_url)
 sub_menu.add_command(label="Clear URL", command=clear_yt_url)
 sub_menu.add_command(label="Exit", command=exit_program)
 
-sub_menu_three = Menu(window, tearoff=0)
-menubar.add_cascade(menu=sub_menu_three, label="Windows")
-sub_menu_three.add_command(label="Home", command=window_home)
 sub_menu_two = Menu(window, tearoff=0)
 menubar.add_cascade(menu=sub_menu_two, label="Others")
-sub_menu_two.add_command(label="Support Us", command=lambda: webbrowser.open(
-    "https://www.youtube.com/c/HirushaAdikari?sub_confirmation=1"))
+# sub_menu_two.add_command(label="Support Us", command=lambda: webbrowser.open(
+#     "https://www.youtube.com/c/HirushaAdikari?sub_confirmation=1"))
 sub_menu_two.add_command(label="Privacy Policy", command=others_privacy_policy)
 sub_menu_two.add_command(label="Source Code", command=others_source_code)
 sub_menu_two.add_command(label="Help", command=others_help)
@@ -600,3 +600,10 @@ dl_info = Checkbutton(canvas, text="Information",
                       bg="#e3ffdc", activebackground="#e3ffdc")
 dl_info.configure(variable=dlvidinfo)
 dl_info.place(x=434, y=375)
+
+
+if __name__ == "__main__":
+    try:
+        window.mainloop()
+    finally:
+        images.DELETE_ALL()
