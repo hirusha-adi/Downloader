@@ -10,7 +10,6 @@ import platform
 import clipboard
 import webbrowser
 import requests
-import base64 as bb
 from pytube import *
 import tkinter.ttk as ttk
 from tkinter import messagebox
