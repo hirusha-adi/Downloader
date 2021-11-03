@@ -8,20 +8,21 @@ __version__ = "v1.2"
 # For any issue, please contact me!
 # #########################
 
-from tkinter import *
 import os
-import sys
 import platform
-import clipboard
+import sys
+import tkinter.ttk as ttk
 import webbrowser
+from threading import Thread
+from tkinter import *
+from tkinter import messagebox
+
+import clipboard
 import requests
 from pytube import *
-import tkinter.ttk as ttk
-from tkinter import messagebox
-import images
 from youtubesearchpython import VideosSearch
-from threading import Thread
 
+import images
 
 # Multi OS Support
 if platform.system().lower().startswith('win'):
