@@ -5,7 +5,14 @@
 
 # Downloader v1.2 - GUI
 
-- Multi Platform Support (mainly beacuse i switched to arch)
+- Multi Platform Support (mainly beacuse i switched to arch from windows)
+- print output only if needed
+
+```
+./start.exe n # to not print
+./start.exe y # to print, defaults to this
+```
+
 - No seperate window for credits
 - This is kind of light weight now
 

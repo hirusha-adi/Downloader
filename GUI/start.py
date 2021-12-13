@@ -4,10 +4,10 @@
 # For any issue, please contact me!
 # #########################
 
-import homewindow, images
+import homewindow
+import images
 
 try:
     homewindow.window.mainloop()
 finally:
     images.DELETE_ALL()
-
