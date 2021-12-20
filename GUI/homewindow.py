@@ -12,10 +12,10 @@ import os
 import platform
 import sys
 import tkinter.ttk as ttk
-import webbrowser
 from threading import Thread
 from tkinter import *
 from tkinter import messagebox
+import webbrowser
 
 import clipboard
 import requests
@@ -33,6 +33,8 @@ else:
     UNIX = True
     CLEAR = "clear"
     BSP = "/"
+
+allDownloaded = []
 
 # ARGS when running the program
 try:
@@ -65,6 +67,14 @@ window.configure(bg="#e3ffdc")
 window.title("Downloader")
 
 
+if show_text:
+    print("""
+ __   __                  __        __   ___  __  
+|  \ /  \ |  | |\ | |    /  \  /\  |  \ |__  |__) 
+|__/ \__/ |/\| | \| |___ \__/ /~~\ |__/ |___ |  \ 
+                                                  
+""")
+
 # Functions
 # --------------------
 def exit_program():
@@ -91,6 +101,10 @@ vidut.set("2")
 # Download Format / Quality
 vidrf = IntVar()
 vidrf.set("2")
+
+# Conversion Type
+convt = IntVar()
+convt.set("1")
 
 # Download Video Information
 dlvidinfo = IntVar()
@@ -342,8 +356,11 @@ def download_first_level():
 
 def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
 
+    global allDownloaded
+
     download_subtitles = int(dlsubs.get())
     download_information = int(dlvidinfo.get())
+    convert_quality = int(convt.get())
 
     if show_text:
         print(f"[*] Recieved a download quality of {qualityvid} to {urlvid}")
@@ -362,6 +379,7 @@ def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
     except Exception as e:
         print("Error:", e)
         return
+
     if show_text:
         print("[+] Video Initiated")
 
@@ -471,7 +489,21 @@ def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
                 except:
                     if show_text:
                         print("[!!] FAILED")
+    
+    allDownloaded.append(video)
 
+    if convert_quality == 1:
+        os.system(f"""ffmpeg "{video}" "{'.'.join(video.split('.')[:-1])}.mp3" """)
+    
+    elif convert_quality == 2:
+        os.system(f"""ffmpeg "{video}" "{'.'.join(video.split('.')[:-1])}.mp4" """) 
+
+    elif convert_quality == 3:
+        os.system(f"""ffmpeg -hwaccel_device 0 -hwaccel cuda -i "{"'".join(video.split('"'))}" -c:v h264_nvenc -preset slow "{''.join("'".join(video.split('"')).split('.')[:-1])}.mp3" """)
+    
+    elif convert_quality == 4:
+        os.system(f"""ffmpeg -hwaccel_device 0 -hwaccel cuda -i "{"'".join(video.split('"'))}" -c:v h264_nvenc -preset slow "{''.join("'".join(video.split('"')).split('.')[:-1])}.mp4" """)
+    
 
 # Canvas
 # --------------------
@@ -650,6 +682,26 @@ dl_info = Checkbutton(canvas, text="Information",
                       bg="#e3ffdc", activebackground="#e3ffdc")
 dl_info.configure(variable=dlvidinfo)
 dl_info.place(x=434, y=375)
+
+qmp3 = Radiobutton(canvas, text="MP3", bg="#e3ffdc",
+                   activebackground="#e3ffdc")
+qmp3.configure(variable=convt, value=1)
+qmp3.place(x=613, y=18)
+
+qmp3Nvenc = Radiobutton(canvas, text="MP4", bg="#e3ffdc",
+                   activebackground="#e3ffdc")
+qmp3Nvenc.configure(variable=convt, value=2)
+qmp3Nvenc.place(x=613, y=48)
+
+qmp4 = Radiobutton(canvas, text="MP3 - NVENC", bg="#e3ffdc",
+                   activebackground="#e3ffdc")
+qmp4.configure(variable=convt, value=3)
+qmp4.place(x=613, y=78)
+
+qmp4Nvenc = Radiobutton(canvas, text="MP4 - NVENC", bg="#e3ffdc",
+                   activebackground="#e3ffdc")
+qmp4Nvenc.configure(variable=convt, value=4)
+qmp4Nvenc.place(x=613, y=108)
 
 
 if __name__ == "__main__":
