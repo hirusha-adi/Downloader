@@ -4,7 +4,7 @@ __version__ = "v1.2"
 
 # #########################
 # Made by ZeaCeR#5641
-# a.k.a Hirusha Adikari
+# (Hirusha Adikari)
 # For any issue, please contact me!
 # #########################
 
@@ -101,10 +101,6 @@ vidut.set("2")
 # Download Format / Quality
 vidrf = IntVar()
 vidrf.set("2")
-
-# Conversion Type
-convt = IntVar()
-convt.set("1")
 
 # Download Video Information
 dlvidinfo = IntVar()
@@ -360,7 +356,6 @@ def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
 
     download_subtitles = int(dlsubs.get())
     download_information = int(dlvidinfo.get())
-    convert_quality = int(convt.get())
 
     if show_text:
         print(f"[*] Recieved a download quality of {qualityvid} to {urlvid}")
@@ -492,18 +487,6 @@ def FUCKING_DOWNLOAD_ONE_VIDEO(qualityvid, urlvid):
     
     allDownloaded.append(video)
 
-    if convert_quality == 1:
-        os.system(f"""ffmpeg "{video}" "{'.'.join(video.split('.')[:-1])}.mp3" """)
-    
-    elif convert_quality == 2:
-        os.system(f"""ffmpeg "{video}" "{'.'.join(video.split('.')[:-1])}.mp4" """) 
-
-    elif convert_quality == 3:
-        os.system(f"""ffmpeg -hwaccel_device 0 -hwaccel cuda -i "{"'".join(video.split('"'))}" -c:v h264_nvenc -preset slow "{''.join("'".join(video.split('"')).split('.')[:-1])}.mp3" """)
-    
-    elif convert_quality == 4:
-        os.system(f"""ffmpeg -hwaccel_device 0 -hwaccel cuda -i "{"'".join(video.split('"'))}" -c:v h264_nvenc -preset slow "{''.join("'".join(video.split('"')).split('.')[:-1])}.mp4" """)
-    
 
 # Canvas
 # --------------------
@@ -683,25 +666,7 @@ dl_info = Checkbutton(canvas, text="Information",
 dl_info.configure(variable=dlvidinfo)
 dl_info.place(x=434, y=375)
 
-qmp3 = Radiobutton(canvas, text="MP3", bg="#e3ffdc",
-                   activebackground="#e3ffdc")
-qmp3.configure(variable=convt, value=1)
-qmp3.place(x=613, y=18)
 
-qmp3Nvenc = Radiobutton(canvas, text="MP4", bg="#e3ffdc",
-                   activebackground="#e3ffdc")
-qmp3Nvenc.configure(variable=convt, value=2)
-qmp3Nvenc.place(x=613, y=48)
-
-qmp4 = Radiobutton(canvas, text="MP3 - NVENC", bg="#e3ffdc",
-                   activebackground="#e3ffdc")
-qmp4.configure(variable=convt, value=3)
-qmp4.place(x=613, y=78)
-
-qmp4Nvenc = Radiobutton(canvas, text="MP4 - NVENC", bg="#e3ffdc",
-                   activebackground="#e3ffdc")
-qmp4Nvenc.configure(variable=convt, value=4)
-qmp4Nvenc.place(x=613, y=108)
 
 
 if __name__ == "__main__":
