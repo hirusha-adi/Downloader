@@ -108,6 +108,25 @@ dlvidinfo = IntVar()
 # Download Video Information
 dlsubs = IntVar()
 
+def to_mp3():
+    global allDownloaded
+    for filename in allDownloaded:
+        os.system(f"""ffmpeg "{filename}" "{'.'.join(filename.split('.')[:-1])}.mp3" """)
+
+def to_mp4():
+    global allDownloaded
+    for filename in allDownloaded:
+        os.system(f"""ffmpeg "{filename}" "{'.'.join(allDownloaded.split('.')[:-1])}.mp4" """) 
+
+def to_mp3_nvenc():
+    global allDownloaded
+    for filename in allDownloaded:
+        os.system(f"""ffmpeg -hwaccel_device 0 -hwaccel cuda -i "{"'".join(filename.split('"'))}" -c:v h264_nvenc -preset slow "{''.join("'".join(filename.split('"')).split('.')[:-1])}.mp3" """)
+
+def to_mp4_nvenc():
+    global allDownloaded
+    for filename in allDownloaded:
+        os.system(f"""ffmpeg -hwaccel_device 0 -hwaccel cuda -i "{"'".join(filename.split('"'))}" -c:v h264_nvenc -preset slow "{''.join("'".join(filename.split('"')).split('.')[:-1])}.mp4" """)
 
 def select_dl_quality(selectquality):
     # These are the numbers i used for the radio buttons (tk.IntVar)
@@ -545,6 +564,13 @@ sub_menu.add_command(label="Download", command=download_very_first_level)
 sub_menu.add_command(label="Paste URL", command=paste_yt_url)
 sub_menu.add_command(label="Clear URL", command=clear_yt_url)
 sub_menu.add_command(label="Exit", command=exit_program)
+
+sub_menu_three = Menu(window, tearoff=0)
+menubar.add_cascade(menu=sub_menu_three, label="Convert")
+sub_menu_three.add_command(label="to MP3", command=to_mp3)
+sub_menu_three.add_command(label="to MP4", command=to_mp4)
+sub_menu_three.add_command(label="to MP3 - NVENC", command=to_mp3_nvenc)
+sub_menu_three.add_command(label="to MP4 - NVENC", command=to_mp4_nvenc)
 
 sub_menu_two = Menu(window, tearoff=0)
 menubar.add_cascade(menu=sub_menu_two, label="Others")
