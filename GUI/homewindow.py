@@ -35,6 +35,7 @@ else:
     BSP = "/"
 
 allDownloaded = []
+allConverted = []
 
 # ARGS when running the program
 try:
@@ -109,24 +110,28 @@ dlvidinfo = IntVar()
 dlsubs = IntVar()
 
 def to_mp3():
-    global allDownloaded
+    global allDownloaded, allConverted
     for filename in allDownloaded:
         os.system(f"""ffmpeg "{filename}" "{'.'.join(filename.split('.')[:-1])}.mp3" """)
+    allConverted.append(f"""{'.'.join(allDownloaded.split('.')[:-1])}.mp3""")
 
 def to_mp4():
-    global allDownloaded
+    global allDownloaded, allConverted
     for filename in allDownloaded:
-        os.system(f"""ffmpeg "{filename}" "{'.'.join(allDownloaded.split('.')[:-1])}.mp4" """) 
+        os.system(f"""ffmpeg "{filename}" "{'.'.join(allDownloaded.split('.')[:-1])}.mp4" """)
+    allConverted.append(f"""{'.'.join(allDownloaded.split('.')[:-1])}.mp4""")
 
 def to_mp3_nvenc():
-    global allDownloaded
+    global allDownloaded, allConverted
     for filename in allDownloaded:
         os.system(f"""ffmpeg -hwaccel_device 0 -hwaccel cuda -i "{"'".join(filename.split('"'))}" -c:v h264_nvenc -preset slow "{''.join("'".join(filename.split('"')).split('.')[:-1])}.mp3" """)
+    allConverted.append(f"""{''.join("'".join(filename.split('"')).split('.')[:-1])}.mp3""")
 
 def to_mp4_nvenc():
-    global allDownloaded
+    global allDownloaded, allConverted
     for filename in allDownloaded:
         os.system(f"""ffmpeg -hwaccel_device 0 -hwaccel cuda -i "{"'".join(filename.split('"'))}" -c:v h264_nvenc -preset slow "{''.join("'".join(filename.split('"')).split('.')[:-1])}.mp4" """)
+    allConverted.append(f"""{''.join("'".join(filename.split('"')).split('.')[:-1])}.mp4""")
 
 def select_dl_quality(selectquality):
     # These are the numbers i used for the radio buttons (tk.IntVar)
