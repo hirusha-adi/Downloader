@@ -133,6 +133,16 @@ def to_mp4_nvenc():
         os.system(f"""ffmpeg -hwaccel_device 0 -hwaccel cuda -i "{"'".join(filename.split('"'))}" -c:v h264_nvenc -preset slow "{''.join("'".join(filename.split('"')).split('.')[:-1])}.mp4" """)
     allConverted.append(f"""{''.join("'".join(filename.split('"')).split('.')[:-1])}.mp4""")
 
+def delete_allDownloaded():
+    global allDownloaded
+    for filename in allDownloaded:
+        os.remove(filename)
+
+def delete_allConverted():
+    global allConverted
+    for filename in allConverted:
+        os.remove(filename)
+
 def select_dl_quality(selectquality):
     # These are the numbers i used for the radio buttons (tk.IntVar)
     # 1080p -> 1
@@ -576,6 +586,8 @@ sub_menu_three.add_command(label="to MP3", command=to_mp3)
 sub_menu_three.add_command(label="to MP4", command=to_mp4)
 sub_menu_three.add_command(label="to MP3 - NVENC", command=to_mp3_nvenc)
 sub_menu_three.add_command(label="to MP4 - NVENC", command=to_mp4_nvenc)
+sub_menu_three.add_command(label="delete Converted", command=delete_allConverted)
+sub_menu_three.add_command(label="delete Downloaded", command=delete_allDownloaded)
 
 sub_menu_two = Menu(window, tearoff=0)
 menubar.add_cascade(menu=sub_menu_two, label="Others")
